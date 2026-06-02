@@ -2575,7 +2575,6 @@
     .mode-toggle:hover {
       transform: scale(1.1);
     }
-
     /* ═══════════════════════════════════════
    COUNTDOWN
 ═══════════════════════════════════════ */
@@ -3770,10 +3769,10 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-badge">🏐 Torneo Estivo di Beach Volley</div>
+
     <div class="water-title">
-      <span class="wt-line1">Fanta Splash</span>
-      <span class="wt-line2">Volley</span>
+      <span class="wt-line1">Felle Splash</span>
+      <span class="wt-line2">18 19 Luglio 2026</span>
     </div>
     <div class="drops-row">
       <div class="drop"></div>
@@ -3782,15 +3781,8 @@
       <div class="drop"></div>
       <div class="drop"></div>
     </div>
-    <p class="hero-sub">Carica, guarda e vota foto e video delle squadre! 🌊</p>
-    <div class="hero-event">
-      <div class="hero-event-inner">
-        <span class="he-wave">🌊</span>
-        <span class="he-text">VI ASPETTIAMO AL TORNEO DI PALLAVOLO SU ACQUA PIÙ BELLO DI TUTTI I TEMPI</span>
-        <span class="he-date">📅 18 / 19 LUGLIO</span>
-        <span class="he-wave">🌊</span>
-      </div>
-    </div>
+    <p class="hero-sub">Carica, guarda e vota i video delle squadre! 🌊</p>
+
   </section>
 
   <!-- WAVE 1 -->
@@ -3912,17 +3904,10 @@
   <!-- LEADERBOARD -->
   <div class="sec-wrap" id="secClassifica" style="padding-bottom:0;">
     <div class="lb-sec">
-      <div class="lb-title">🏆 Classifica</div>
-      <div class="lb-sub" id="lbSub">Si aggiorna automaticamente a mezzanotte</div>
-      <!-- TOP 5 FOTO -->
-      <div class="lb-cat-title">📷 Top 5 Foto</div>
-      <div class="lb-grid" id="lbGridFoto">
-        <div class="lb-empty">In attesa di voti…</div>
-      </div>
-      <!-- TOP 5 VIDEO -->
-      <div class="lb-cat-title" style="margin-top:22px;">🎬 Top 5 Video</div>
-      <div class="lb-grid" id="lbGridVideo">
-        <div class="lb-empty">In attesa di voti…</div>
+      <div class="lb-title">🏆 Classifica Generale</div>
+      <div class="lb-sub" id="lbSub">Aggiornata dall'admin del torneo</div>
+      <div id="lbGenerale">
+        <div class="lb-empty">Classifica non ancora disponibile…</div>
       </div>
     </div>
   </div>
@@ -4110,7 +4095,8 @@
         <div class="rs-icon">🎉</div>
         <div class="rs-title">Iscrizione Ricevuta!</div>
         <div class="rs-msg">Grazie <strong id="rsTeam"></strong>!<br>Ti aspettiamo il 18/19 Luglio.<br><span
-            style="opacity:.65;font-size:.88rem;">Hai ricevuto un riepilogo via email.</span></div>
+            style="opacity:.65;font-size:.88rem;">Riceverai un'email di conferma. Una copia è stata inviata agli
+            organizzatori.</span></div>
         <button class="reg-submit" style="max-width:220px;margin:16px auto 0;" onclick="resetReg()">➕ Nuova
           Iscrizione</button>
       </div>
@@ -4186,7 +4172,7 @@
       <div style="font-size:2.5rem;margin-bottom:10px;">🗑️</div>
       <h2 style="font-size:1.2rem;">Eliminare squadra?</h2>
       <p style="opacity:.7;margin:10px 0 16px;font-size:.87rem;line-height:1.55;">Vuoi eliminare <strong
-          id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">Foto e video verranno persi.</span></p>
+          id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">I video verranno persi.</span></p>
       <input type="hidden" id="delTId">
       <div class="modal-btns">
         <button class="btn-cancel" onclick="cm('ovDelTeam')">Annulla</button>
@@ -4267,8 +4253,24 @@
             <button class="btn-cancel" onclick="adminClearNextMatch()">🗑️ Rimuovi match</button>
           </div>
         </div>
+        <!-- CLASSIFICA GENERALE -->
+        <div
+          style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
+          <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏆 Classifica Generale
+          </div>
+          <div id="adminRankingList" style="margin-bottom:10px;"></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <input type="text" id="rnkName" placeholder="Nome squadra…"
+              style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;min-width:100px;">
+            <input type="number" id="rnkPts" placeholder="Punti" min="0"
+              style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
+            <input type="text" id="rnkNote" placeholder="Nota (opz.)"
+              style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;min-width:80px;">
+            <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕ Aggiungi</button>
+          </div>
+        </div>
         <!-- PENDING MEDIA -->
-        <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">📸 Foto e video in attesa di approvazione</div>
+        <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎬 Video in attesa di approvazione</div>
         <div id="pendingList">
           <div style="opacity:.38;font-size:.85rem;padding:10px;">Nessun contenuto in attesa.</div>
         </div>
@@ -4337,6 +4339,7 @@
     const EMOJIS = ['🏐', '🌊', '⚡', '🔥', '🌴', '🦈', '🐬', '🌞', '🏄', '💪', '🦁', '🐯', '🦅', '🌺', '🎯', '🏆', '🦋', '🐉', '🌈', '⭐', '🎪', '🎨', '🏋️', '🤸', '🧨', '🏅', '🎖️', '🌻', '🦊', '🐺', '🦝', '🐸'];
     const CFT = ['#ffd166', '#ff6b6b', '#90e0ef', '#00b4d8', '#52b788', '#fff', '#ffb703', '#48cae4'];
     const EMAIL = 'mirkocavecchi@gmail.com';
+    const EMAIL_CC = 'nuovafellegara@gmail.com';
     const ADMIN_PW = 'splash26';   // ← password admin
     const K_TEAMS = 'fsv6_teams';
     const K_MEDIA = 'fsv6_media';
@@ -4598,6 +4601,7 @@
        MEDIA UPLOAD
     ══════════════════════════════════ */
     async function handleUpload(tid, type, input) {
+      if (type === 'foto') { toast('⚠️ Il caricamento di foto non è consentito'); input.value = ''; return; }
       const t = _teams[tid]; if (!t) return;
       const files = Array.from(input.files); if (!files.length) return;
       const pb = document.getElementById('pb-' + tid + '-' + type);
@@ -4605,25 +4609,19 @@
       if (pb) pb.style.display = 'block';
       let done = 0;
       for (const file of files) {
-        let src;
-        if (type === 'foto') {
-          src = await compress(file, 900, .76);
-        } else {
-          if (file.size > 15 * 1024 * 1024) { toast('⚠️ Video max 15MB'); continue; }
-          src = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); });
-        }
+        if (file.size > 15 * 1024 * 1024) { toast('⚠️ Video max 15MB'); continue; }
+        const src = await new Promise(res => { const r = new FileReader(); r.onload = e => res(e.target.result); r.readAsDataURL(file); });
         const mid = 'm' + Date.now() + Math.random().toString(36).slice(2, 6);
-        // Route to pending queue for admin approval
-        _pending[mid] = { teamId: tid, teamName: t.name, type, src, createdAt: Date.now() };
+        _pending[mid] = { teamId: tid, teamName: t.name, type: 'video', src, createdAt: Date.now() };
         done++;
         if (pf) pf.style.width = (done / files.length * 100) + '%';
-        sendEmail(t.name, type);
+        sendEmail(t.name, 'video');
       }
       savePending();
       updateAdminBadge();
       setTimeout(() => { if (pb) pb.style.display = 'none'; if (pf) pf.style.width = '0%'; }, 900);
       input.value = '';
-      toast('⏳ Contenuto inviato – in attesa di approvazione admin');
+      toast('⏳ Video inviato – in attesa di approvazione admin');
       renderTeams();
     }
 
@@ -4673,64 +4671,37 @@
     }
 
     /* ══════════════════════════════════
-       LEADERBOARD (TOP 5)
+       LEADERBOARD – CLASSIFICA GENERALE (admin only)
     ══════════════════════════════════ */
+    // _ranking: array of {pos, name, pts, note}
+    const K_RANKING = 'fsv6_ranking';
+    let _ranking = [];
+    function loadRanking() {
+      _ranking = JSON.parse(localStorage.getItem(K_RANKING) || '[]');
+    }
+    function saveRanking() { localStorage.setItem(K_RANKING, JSON.stringify(_ranking)); }
+
     function renderLeaderboard() {
-      const gF = document.getElementById('lbGridFoto');
-      const gV = document.getElementById('lbGridVideo');
-      if (!gF || !gV) return;
-
-      const arr = Object.entries(_media).map(([id, m]) => ({ id, ...m }));
-      const fotos = arr.filter(m => m.type === 'foto' && m.voteCount > 0).sort((a, b) => b.avgRating - a.avgRating || b.voteCount - a.voteCount).slice(0, 5);
-      const videos = arr.filter(m => m.type === 'video' && m.voteCount > 0).sort((a, b) => b.avgRating - a.avgRating || b.voteCount - a.voteCount).slice(0, 5);
-
-      const newF = fotos[0] || null, newV = videos[0] || null;
-      const fOt = prevLbF && newF && newF.id !== prevLbF.id;
-      const vOt = prevLbV && newV && newV.id !== prevLbV.id;
-
-      const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-
-      if (!fotos.length) gF.innerHTML = '<div class="lb-empty">Nessun voto ancora…</div>';
-      else gF.innerHTML = fotos.map((m, i) => lbCard5(m, i, i === 0 && fOt)).join('');
-
-      if (!videos.length) gV.innerHTML = '<div class="lb-empty">Nessun voto ancora…</div>';
-      else gV.innerHTML = videos.map((m, i) => lbCard5(m, i, i === 0 && vOt)).join('');
-
-      prevLbF = newF; prevLbV = newV;
+      const g = document.getElementById('lbGenerale');
+      if (!g) return;
+      if (!_ranking.length) { g.innerHTML = '<div class="lb-empty">Classifica non ancora disponibile…</div>'; return; }
+      const medals = ['🥇', '🥈', '🥉'];
+      g.innerHTML = `<div class="lb-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">${_ranking.map((r, i) => `<div class="lb-card">
+          <span class="lb-medal">${medals[i] || '🏐'}</span>
+          <div class="lb-type">${i + 1}° posto</div>
+          <div class="lb-team">${esc(r.name)}</div>
+          <div class="lb-score">${r.pts} pt</div>
+          ${r.note ? `<div class="lb-votes">${esc(r.note)}</div>` : ''}
+        </div>`).join('')
+        }</div>`;
     }
-    function lbCard5(m, rank, ot) {
-      const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
-      const prev = m.type === 'foto'
-        ? `<img class="lb-prev" src="${m.src}" loading="lazy">`
-        : `<video class="lb-prev" src="${m.src}" muted autoplay loop playsinline style="height:85px;object-fit:cover;border-radius:10px;display:block;width:100%;"></video>`;
-      return `<div class="lb-card${ot ? ' ot' : ''}">
-    ${ot ? '<div class="ot-flash"></div>' : ''}
-    <div class="lb-prev-wrap">${prev}<span class="lb-rank">#${rank + 1}</span></div>
-    <span class="lb-medal">${medals[rank] || '🏐'}</span>
-    <div class="lb-team">${esc(m.teamName || '')}</div>
-    <div class="lb-score">${m.avgRating}/10</div>
-    <div class="lb-votes">${m.voteCount} vot${m.voteCount === 1 ? 'o' : 'i'}</div>
-  </div>`;
-    }
-    function scheduleLeaderboard() {
-      const now = new Date(), mn = new Date(now); mn.setHours(24, 0, 0, 0);
-      setTimeout(() => {
-        renderLeaderboard();
-        document.getElementById('lbSub').textContent = 'Aggiornata: ' + new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-        setInterval(renderLeaderboard, 86400000);
-      }, mn - now);
-    }
+    function scheduleLeaderboard() { /* classifica gestita solo da admin */ }
 
     /* ══════════════════════════════════
        RENDER TEAMS
     ══════════════════════════════════ */
     function renderTeams() {
       const grid = document.getElementById('tGrid'); if (!grid) return;
-      const activeTabs = {};
-      Object.keys(_teams).forEach(tid => {
-        const tv = document.getElementById('tv-' + tid);
-        if (tv && tv.classList.contains('on')) activeTabs[tid] = 'video';
-      });
       grid.innerHTML = '';
       let arr = Object.entries(_teams).map(([id, t]) => ({ id, ...t })).sort((a, b) => a.createdAt - b.createdAt);
       // text search
@@ -4750,7 +4721,6 @@
         return;
       }
       arr.forEach(t => { grid.appendChild(buildCard(t)); });
-      Object.keys(activeTabs).forEach(tid => swTab(tid, 'video'));
     }
 
     function logoHtml(t) {
@@ -4785,7 +4755,6 @@
       const div = document.createElement('div');
       div.className = 'tcard'; div.id = 'c-' + t.id;
       const tMedia = Object.entries(_media).map(([id, m]) => ({ id, ...m })).filter(m => m.teamId === t.id).sort((a, b) => a.createdAt - b.createdAt);
-      const fotos = tMedia.filter(m => m.type === 'foto');
       const vids = tMedia.filter(m => m.type === 'video');
       const stats = _tstats[t.id] || { w: 0, l: 0, pts: 0 };
       const roster = _roster[t.id] || [];
@@ -4808,28 +4777,18 @@
         <span class="stat-pill">❌ <span class="sl">${stats.l}</span> Perse</span>
         <span class="stat-pill">🏅 <span class="sp">${stats.pts}</span> Punti</span>
       </div>
-      <!-- TABS -->
-      <div class="tabs" style="margin-top:10px;">
-        <button class="tab on" id="tf-${t.id}"  onclick="swTab('${t.id}','foto')">📷 Foto (${fotos.length})</button>
-        <button class="tab"    id="tv-${t.id}"  onclick="swTab('${t.id}','video')">🎬 Video (${vids.length})</button>
-      </div>
-      <div id="pf-${t.id}">
-        ${buildMediaList(fotos, 'foto', t.id)}
-        <label class="up-zone">
-          <input type="file" accept="image/*" multiple onchange="handleUpload('${t.id}','foto',this)">
-          <div class="up-ico">📷</div><strong>Carica Foto</strong>
-          <p>Clicca/tocca per selezionare immagini</p>
-        </label>
-        <div class="prog" id="pb-${t.id}-foto"><div class="prog-f" id="pf-${t.id}-foto"></div></div>
-      </div>
-      <div id="pv-${t.id}" style="display:none;">
-        ${buildMediaList(vids, 'video', t.id)}
-        <label class="up-zone">
-          <input type="file" accept="video/*" multiple onchange="handleUpload('${t.id}','video',this)">
-          <div class="up-ico">🎬</div><strong>Carica Video</strong>
-          <p>Max 15MB per video</p>
-        </label>
-        <div class="prog" id="pb-${t.id}-video"><div class="prog-f" id="pf-${t.id}-video"></div></div>
+      <!-- VIDEO -->
+      <div style="margin-top:10px;">
+        <div style="font-size:.78rem;font-weight:800;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">🎬 Video (${vids.length})</div>
+        <div id="pv-${t.id}">
+          ${buildMediaList(vids, 'video', t.id)}
+          <label class="up-zone">
+            <input type="file" accept="video/*" multiple onchange="handleUpload('${t.id}','video',this)">
+            <div class="up-ico">🎬</div><strong>Carica Video</strong>
+            <p>Max 15MB per video</p>
+          </label>
+          <div class="prog" id="pb-${t.id}-video"><div class="prog-f" id="pf-${t.id}-video"></div></div>
+        </div>
       </div>
       <!-- ROSTER -->
       <div class="roster-toggle" onclick="toggleRoster('${t.id}')">
@@ -4902,20 +4861,8 @@
   </div>`;
     }
 
-    /* ══════════════════════════════════
-       TAB SWITCH
-    ══════════════════════════════════ */
-    function swTab(tid, type) {
-      const pf = document.getElementById('pf-' + tid);
-      const pv = document.getElementById('pv-' + tid);
-      const tf = document.getElementById('tf-' + tid);
-      const tv = document.getElementById('tv-' + tid);
-      if (!pf || !pv || !tf || !tv) return;
-      pf.style.display = type === 'foto' ? '' : 'none';
-      pv.style.display = type === 'video' ? '' : 'none';
-      tf.classList.toggle('on', type === 'foto');
-      tv.classList.toggle('on', type === 'video');
-    }
+    /* swTab – mantenuto per compatibilità, ora solo video */
+    function swTab(tid, type) { /* no-op: solo video */ }
 
     /* ══════════════════════════════════
        EMAIL
@@ -4976,7 +4923,8 @@
           '✉️ Messaggio': 'GRAZIE PER ESSERTI ISCRITTO AL TORNEO! Ti aspettiamo il 18/19 Luglio.',
           _template: 'table',
           _captcha: 'false',
-          _replyto: email
+          _replyto: email,
+          _cc: EMAIL_CC
         })
       })
         .then(r => r.json())
@@ -5412,6 +5360,49 @@
     }
 
     /* ══════════════════════════════════
+       CLASSIFICA GENERALE (admin)
+    ══════════════════════════════════ */
+    function adminAddRanking() {
+      const name = document.getElementById('rnkName').value.trim();
+      const pts = parseInt(document.getElementById('rnkPts').value) || 0;
+      const note = document.getElementById('rnkNote').value.trim();
+      if (!name) { toast('⚠️ Inserisci il nome della squadra'); return; }
+      _ranking.push({ name, pts, note });
+      // sort by pts descending
+      _ranking.sort((a, b) => b.pts - a.pts);
+      saveRanking();
+      document.getElementById('rnkName').value = '';
+      document.getElementById('rnkPts').value = '';
+      document.getElementById('rnkNote').value = '';
+      renderAdminRanking();
+      renderLeaderboard();
+      toast('✅ Squadra aggiunta alla classifica!');
+    }
+    function adminRemoveRanking(idx) {
+      _ranking.splice(idx, 1);
+      saveRanking();
+      renderAdminRanking();
+      renderLeaderboard();
+      toast('🗑️ Rimossa dalla classifica.');
+    }
+    function renderAdminRanking() {
+      const el = document.getElementById('adminRankingList');
+      if (!el) return;
+      if (!_ranking.length) {
+        el.innerHTML = '<div style="opacity:.4;font-size:.82rem;padding:4px 0;">Nessuna squadra ancora.</div>';
+        return;
+      }
+      el.innerHTML = _ranking.map((r, i) => `
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="font-weight:900;color:var(--sand);min-width:22px;">${i + 1}°</span>
+          <span style="flex:1;font-weight:700;font-size:.88rem;">${esc(r.name)}</span>
+          <span style="background:rgba(255,209,102,.2);border-radius:8px;padding:2px 10px;font-size:.8rem;font-weight:900;color:var(--sand);">${r.pts} pt</span>
+          ${r.note ? `<span style="opacity:.55;font-size:.75rem;">${esc(r.note)}</span>` : ''}
+          <button class="btn-del-sm" onclick="adminRemoveRanking(${i})">✕</button>
+        </div>`).join('');
+    }
+
+    /* ══════════════════════════════════
        BACK TO TOP
     ══════════════════════════════════ */
     window.addEventListener('scroll', () => {
@@ -5467,7 +5458,7 @@
     ══════════════════════════════════ */
     function openAdmin() {
       document.getElementById('ovAdmin').classList.add('open');
-      if (adminLoggedIn) { renderPending(); }
+      if (adminLoggedIn) { renderPending(); renderAdminRanking(); }
     }
     function checkAdminPw() {
       const v = document.getElementById('adminPwInp').value;
@@ -5478,6 +5469,7 @@
         document.getElementById('adminPanel').style.display = 'block';
         err.style.display = 'none';
         renderPending();
+        renderAdminRanking();
       } else {
         err.style.display = 'block';
         document.getElementById('adminPwInp').value = '';
@@ -5579,6 +5571,7 @@
        BOOT
     ══════════════════════════════════ */
     load();
+    loadRanking();
     renderTeams();
     renderLeaderboard();
     renderGironi();
