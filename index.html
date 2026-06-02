@@ -3719,6 +3719,39 @@
       background: rgba(255, 255, 255, .65);
       border-color: rgba(0, 180, 216, .3);
     }
+
+    /* ═══════════════════════════════════════
+   CAMPI GRID (Campo A / Campo B)
+═══════════════════════════════════════ */
+    .campi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    @media(max-width:640px) {
+      .campi-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .campo-hdr {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.15rem;
+      color: var(--sand);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 209, 102, .25);
+      text-shadow: 0 2px 12px rgba(255, 183, 3, .3);
+    }
+
+    .campo-col {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
   </style>
 </head>
 
@@ -3782,7 +3815,7 @@
       <div class="drop"></div>
       <div class="drop"></div>
     </div>
-    <p class="hero-sub">Carica, guarda e vota i video delle squadre! 🌊</p>
+
 
   </section>
 
@@ -3808,11 +3841,6 @@
     </div>
   </div>
 
-  <!-- PROSSIMO MATCH -->
-  <div class="next-match-wrap" id="secProssimoMatch">
-    <div id="nextMatchCard"></div>
-  </div>
-
   <!-- LIVE WALL -->
   <div class="live-wall" id="liveWall">
     <div class="lw-header">
@@ -3828,10 +3856,9 @@
 
   <!-- SECTION NAV -->
   <nav class="sec-nav">
-    <a href="#secSquadre" class="sec-pill">🏐 Squadre</a>
-    <a href="#secProssimoMatch" class="sec-pill">⚡ Prossimo Match</a>
-    <a href="#secTabellone" class="sec-pill">🏆 Tabellone</a>
-    <a href="#secClassifica" class="sec-pill">🥇 Classifica</a>
+    <a href="#secSquadre" class="sec-pill">🏐 Elenco Squadre</a>
+    <a href="#secTabellone" class="sec-pill">🏆 Tabellone Live</a>
+    <a href="#secClassifica" class="sec-pill">📊 Classifica Live</a>
     <a href="#secMappa" class="sec-pill">📍 Mappa</a>
     <a href="#secProgramma" class="sec-pill">📅 Programma</a>
     <a href="#secIscrizione" class="sec-pill">✍️ Iscrizione</a>
@@ -3840,8 +3867,8 @@
   <!-- MAIN -->
   <main id="secSquadre">
     <div class="section-hdr">
-      <div class="section-title">🏐 Le Squadre</div>
-      <button class="btn-add" id="btnAdd" onclick="openAdd()">➕ Aggiungi Squadra</button>
+      <div class="section-title">🏐 Elenco Squadre</div>
+
     </div>
     <!-- SEARCH BAR -->
     <div class="search-wrap">
@@ -3877,26 +3904,15 @@
   <div class="sec-wrap" id="secTabellone" style="margin-bottom:36px;">
     <div class="sec-card">
       <div class="sec-title">🏆 Tabellone Live</div>
-      <div class="sec-sub">Gironi e playoff in tempo reale · clicca sui punteggi per modificarli</div>
-      <div class="tab-nav">
-        <button class="tab-nav-btn on" onclick="showBracket('gironi',this)">📋 Gironi</button>
-        <button class="tab-nav-btn" onclick="showBracket('playoff',this)">🏆 Playoff</button>
-      </div>
-      <div id="bracketGironi">
-        <div class="gironi-grid" id="gironiGrid"></div>
-        <div style="margin-top:16px;">
-          <div class="lb-cat-title" style="margin-bottom:12px;">⚽ Partite Girone</div>
-          <div id="matchesGrid"></div>
-          <button class="dl-btn" style="margin-top:10px;font-size:.82rem;" onclick="openAddMatch()">➕ Aggiungi
-            Partita</button>
+      <div class="sec-sub">Risultati in tempo reale · aggiornati dall'admin del torneo</div>
+      <div class="campi-grid">
+        <div class="campo-col">
+          <div class="campo-hdr">🏐 Campo A</div>
+          <div id="matchesCampoA"><div style="opacity:.38;font-size:.85rem;padding:8px 0;">Nessuna partita.</div></div>
         </div>
-      </div>
-      <div id="bracketPlayoff" style="display:none;">
-        <div class="bracket-wrap">
-          <div class="bracket" id="playoffBracket"></div>
-        </div>
-        <div style="margin-top:14px;">
-          <button class="dl-btn" style="font-size:.82rem;" onclick="genPlayoff()">🔀 Genera Bracket da Gironi</button>
+        <div class="campo-col">
+          <div class="campo-hdr">🏐 Campo B</div>
+          <div id="matchesCampoB"><div style="opacity:.38;font-size:.85rem;padding:8px 0;">Nessuna partita.</div></div>
         </div>
       </div>
     </div>
@@ -3905,8 +3921,8 @@
   <!-- LEADERBOARD -->
   <div class="sec-wrap" id="secClassifica" style="padding-bottom:0;">
     <div class="lb-sec">
-      <div class="lb-title">🏆 Classifica Generale</div>
-      <div class="lb-sub" id="lbSub">Aggiornata dall'admin del torneo</div>
+      <div class="lb-title">📊 Classifica Live</div>
+      <div class="lb-sub" id="lbSub">Punti calcolati in tempo reale dai risultati di Campo A e Campo B</div>
       <div id="lbGenerale">
         <div class="lb-empty">Classifica non ancora disponibile…</div>
       </div>
@@ -4237,27 +4253,50 @@
           <span style="font-size:.82rem;opacity:.6;">Area di controllo torneo</span>
           <button class="btn-del-sm" onclick="adminLogout()">🚪 Esci</button>
         </div>
-        <!-- NEXT MATCH FORM -->
+        <!-- GESTIONE SQUADRE -->
         <div
-          style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:18px;">
-          <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">⚡ Prossimo Match</div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <input type="text" id="nmT1Input" placeholder="Squadra 1…"
-              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 13px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;width:100%;">
-            <input type="text" id="nmT2Input" placeholder="Squadra 2…"
-              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 13px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;width:100%;">
-            <input type="text" id="nmGironeInput" placeholder="Girone (es. A) – facoltativo"
-              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 13px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;width:100%;">
-            <input type="datetime-local" id="nmDateInput"
-              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:10px 13px;color:#fff;font-family:'Nunito',sans-serif;font-size:.9rem;outline:none;width:100%;color-scheme:dark;">
-            <button class="btn-ok" style="margin-top:2px;" onclick="adminSetNextMatch()">⚡ Salva Prossimo Match</button>
-            <button class="btn-cancel" onclick="adminClearNextMatch()">🗑️ Rimuovi match</button>
+          style="background:rgba(82,183,136,.08);border:1px solid rgba(82,183,136,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+          <div style="font-weight:900;font-size:.88rem;color:#52b788;margin-bottom:12px;">🏐 Gestione Squadre</div>
+          <button class="btn-ok" style="background:linear-gradient(135deg,#52b788,#2d6a4f);width:100%;margin-top:2px;" onclick="openAdd()">➕ Aggiungi Nuova Squadra</button>
+        </div>
+        <!-- CAMPO A -->
+        <div
+          style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+          <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A – Partite</div>
+          <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <select id="campoAT1"
+              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+              <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
+            </select>
+            <select id="campoAT2"
+              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+              <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
+            </select>
+            <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi Partita Campo A</button>
           </div>
         </div>
-        <!-- CLASSIFICA GENERALE -->
+        <!-- CAMPO B -->
+        <div
+          style="background:rgba(255,183,3,.08);border:1px solid rgba(255,183,3,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+          <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B – Partite</div>
+          <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <select id="campoBT1"
+              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+              <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
+            </select>
+            <select id="campoBT2"
+              style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Nunito',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+              <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
+            </select>
+            <button class="btn-ok" style="margin-top:2px;background:linear-gradient(135deg,#ffb703,#e85d04);" onclick="addMatchCampo('B')">➕ Aggiungi Partita Campo B</button>
+          </div>
+        </div>
+        <!-- CLASSIFICA LIVE -->
         <div
           style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
-          <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏆 Classifica Generale
+          <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊 Classifica Live
           </div>
           <div id="adminRankingList" style="margin-bottom:10px;"></div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;">
@@ -4304,34 +4343,7 @@
   <!-- NOTIFICATIONS -->
   <button class="notif-btn" id="notifBtn" onclick="reqNotif()" title="Notifiche push">🔔</button>
 
-  <!-- MODAL: AGGIUNGI PARTITA -->
-  <div class="overlay" id="ovMatch" onclick="ocl(event,'ovMatch')">
-    <div class="modal">
-      <h2>⚽ Aggiungi Partita</h2>
-      <div class="form-row">
-        <label>Girone</label>
-        <select id="matchGirone" class="reg-select"
-          style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:11px;padding:12px 14px;color:#fff;font-family:Nunito,sans-serif;font-size:.96rem;">
-          <option value="A">Girone A</option>
-          <option value="B">Girone B</option>
-          <option value="C">Girone C</option>
-          <option value="D">Girone D</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label>Squadra 1 *</label>
-        <input type="text" id="matchT1" placeholder="Nome squadra..." autocomplete="off">
-      </div>
-      <div class="form-row">
-        <label>Squadra 2 *</label>
-        <input type="text" id="matchT2" placeholder="Nome squadra..." autocomplete="off">
-      </div>
-      <div class="modal-btns">
-        <button class="btn-cancel" onclick="cm('ovMatch')">Annulla</button>
-        <button class="btn-ok" onclick="doAddMatch()">➕ Aggiungi</button>
-      </div>
-    </div>
-  </div>
+
 
   <script>
     /* ══════════════════════════════════
@@ -4410,7 +4422,6 @@
     function saveVotes() { localStorage.setItem(K_VOTES, JSON.stringify(_myVotes)); }
     function saveComments() { localStorage.setItem(K_COMMENTS, JSON.stringify(_comments)); }
     function saveMatches() { localStorage.setItem(K_MATCHES, JSON.stringify(_matches)); }
-    function savePlayoff() { localStorage.setItem(K_PLAYOFF, JSON.stringify(_playoff)); }
     function saveRoster() { localStorage.setItem(K_ROSTER, JSON.stringify(_roster)); }
     function saveTstats() { localStorage.setItem(K_TSTATS, JSON.stringify(_tstats)); }
     function savePending() { localStorage.setItem(K_PENDING, JSON.stringify(_pending)); }
@@ -4544,6 +4555,7 @@
       renderTeams();
       renderLeaderboard();
       renderGironi();
+      populateAdminTeamSelects();
     }
 
     /* ══════════════════════════════════
@@ -4672,9 +4684,10 @@
     }
 
     /* ══════════════════════════════════
-       LEADERBOARD – CLASSIFICA GENERALE (admin only)
+    /* ══════════════════════════════════
+       LEADERBOARD – CLASSIFICA LIVE (auto-calcolata)
     ══════════════════════════════════ */
-    // _ranking: array of {pos, name, pts, note}
+    // _ranking: kept for legacy admin manual entry (optional override)
     const K_RANKING = 'fsv6_ranking';
     let _ranking = [];
     function loadRanking() {
@@ -4685,16 +4698,47 @@
     function renderLeaderboard() {
       const g = document.getElementById('lbGenerale');
       if (!g) return;
-      if (!_ranking.length) { g.innerHTML = '<div class="lb-empty">Classifica non ancora disponibile…</div>'; return; }
+
+      // Auto-compute from Campo A and Campo B match results
+      const pts = {};  // { teamName: { pts, v, p } }
+      
+      // Inizializza con tutte le squadre registrate
+      Object.values(_teams).forEach(t => {
+        pts[t.name] = { pts: 0, v: 0, p: 0 };
+      });
+
+      Object.values(_matches).forEach(m => {
+        if (!pts[m.t1]) pts[m.t1] = { pts: 0, v: 0, p: 0 };
+        if (!pts[m.t2]) pts[m.t2] = { pts: 0, v: 0, p: 0 };
+        if (m.s1 !== '' && m.s2 !== '') {
+          const s1 = parseInt(m.s1 || 0), s2 = parseInt(m.s2 || 0);
+          if (s1 > s2) { pts[m.t1].v++; pts[m.t1].pts += 3; pts[m.t2].p++; }
+          else if (s2 > s1) { pts[m.t2].v++; pts[m.t2].pts += 3; pts[m.t1].p++; }
+          else { pts[m.t1].pts += 1; pts[m.t2].pts += 1; }
+        }
+      });
+
+      // Also include manual ranking entries (admin override)
+      _ranking.forEach(r => {
+        if (!pts[r.name]) pts[r.name] = { pts: 0, v: 0, p: 0 };
+        pts[r.name].pts += r.pts || 0;
+        if (r.note) pts[r.name].note = r.note;
+      });
+
+      const sorted = Object.entries(pts).sort((a, b) => b[1].pts - a[1].pts);
+
+      if (!sorted.length) {
+        g.innerHTML = '<div class="lb-empty">📊 Nessuna partita con risultato ancora.</div>';
+        return;
+      }
       const medals = ['🥇', '🥈', '🥉'];
-      g.innerHTML = `<div class="lb-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">${_ranking.map((r, i) => `<div class="lb-card">
+      g.innerHTML = `<div class="lb-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">${sorted.map(([name, s], i) => `<div class="lb-card">
           <span class="lb-medal">${medals[i] || '🏐'}</span>
           <div class="lb-type">${i + 1}° posto</div>
-          <div class="lb-team">${esc(r.name)}</div>
-          <div class="lb-score">${r.pts} pt</div>
-          ${r.note ? `<div class="lb-votes">${esc(r.note)}</div>` : ''}
-        </div>`).join('')
-        }</div>`;
+          <div class="lb-team">${esc(name)}</div>
+          <div class="lb-score">${s.pts} pt</div>
+          <div class="lb-votes" style="font-size:.7rem;opacity:.6;">${s.v}V · ${s.p}P${s.note ? ' · ' + esc(s.note) : ''}</div>
+        </div>`).join('')}</div>`;
     }
     function scheduleLeaderboard() { /* classifica gestita solo da admin */ }
 
@@ -4729,6 +4773,26 @@
       return `<span aria-label="Stemma squadra">${t.logo}</span>`;
     }
 
+    /* ── STATS COMPUTATION ── */
+    function getTeamStats(teamName) {
+      const stats = { w: 0, l: 0, pts: 0 };
+      Object.values(_matches).forEach(m => {
+        if (m.s1 !== '' && m.s2 !== '') {
+          const s1 = parseInt(m.s1 || 0), s2 = parseInt(m.s2 || 0);
+          if (m.t1 === teamName) {
+            if (s1 > s2) { stats.w++; stats.pts += 3; }
+            else if (s2 > s1) { stats.l++; }
+            else { stats.pts += 1; }
+          } else if (m.t2 === teamName) {
+            if (s2 > s1) { stats.w++; stats.pts += 3; }
+            else if (s1 > s2) { stats.l++; }
+            else { stats.pts += 1; }
+          }
+        }
+      });
+      return stats;
+    }
+
     /* ── BADGES ── */
     function teamBadges(t) {
       const allMedia = Object.entries(_media).map(([id, m]) => ({ id, ...m }));
@@ -4741,9 +4805,12 @@
       const maxAvg = Math.max(...allAvgs, 0);
       const isHot = myAvg > 0 && myAvg >= maxAvg && allAvgs.filter(a => a === maxAvg).length === 1;
       const isNew = (Date.now() - t.createdAt) < 172800000;
-      const stats = _tstats[t.id] || { pts: 0 };
-      const maxPts = Math.max(...Object.values(_tstats).map(s => s.pts || 0), 0);
+      
+      const stats = getTeamStats(t.name);
+      const allPts = Object.values(_teams).map(tm => getTeamStats(tm.name).pts);
+      const maxPts = Math.max(...allPts, 0);
       const isLeader = stats.pts > 0 && stats.pts >= maxPts;
+      
       let html = '';
       if (t.girone) html += `<span class="tbadge champ">Girone ${esc(t.girone)}</span>`;
       if (isLeader) html += `<span class="tbadge leader">🏆 Leader</span>`;
@@ -4757,7 +4824,7 @@
       div.className = 'tcard'; div.id = 'c-' + t.id;
       const tMedia = Object.entries(_media).map(([id, m]) => ({ id, ...m })).filter(m => m.teamId === t.id).sort((a, b) => a.createdAt - b.createdAt);
       const vids = tMedia.filter(m => m.type === 'video');
-      const stats = _tstats[t.id] || { w: 0, l: 0, pts: 0 };
+      const stats = getTeamStats(t.name);
       const roster = _roster[t.id] || [];
       const isFav = _favs.includes(t.id);
       div.innerHTML = `
@@ -5085,148 +5152,81 @@
     }
 
     /* ══════════════════════════════════
-       TABELLONE
+       TABELLONE – CAMPO A / CAMPO B
     ══════════════════════════════════ */
-    function showBracket(view, btn) {
-      document.getElementById('bracketGironi').style.display = view === 'gironi' ? '' : 'none';
-      document.getElementById('bracketPlayoff').style.display = view === 'playoff' ? '' : 'none';
-      document.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('on'));
-      if (btn) btn.classList.add('on');
-      if (view === 'gironi') renderGironi();
-      else renderPlayoff();
-    }
-    function renderGironi() {
-      const grid = document.getElementById('gironiGrid');
-      const matchGrid = document.getElementById('matchesGrid');
-      if (!grid || !matchGrid) return;
-      // Build gironi from matches
-      const gironiMap = {};
-      Object.entries(_matches).forEach(([mid, m]) => {
-        if (!gironiMap[m.girone]) gironiMap[m.girone] = {};
-        [m.t1, m.t2].forEach(t => { if (!gironiMap[m.girone][t]) gironiMap[m.girone][t] = { v: 0, p: 0, pts: 0 }; });
-        if (m.s1 !== '' && m.s2 !== '') {
-          const s1 = parseInt(m.s1 || 0), s2 = parseInt(m.s2 || 0);
-          if (s1 > s2) { gironiMap[m.girone][m.t1].v++; gironiMap[m.girone][m.t1].pts += 3; gironiMap[m.girone][m.t2].p++; }
-          else if (s2 > s1) { gironiMap[m.girone][m.t2].v++; gironiMap[m.girone][m.t2].pts += 3; gironiMap[m.girone][m.t1].p++; }
-          else { gironiMap[m.girone][m.t1].pts += 1; gironiMap[m.girone][m.t2].pts += 1; }
-        }
+    function renderCampi() {
+      ['A', 'B'].forEach(campo => {
+        const elPub = document.getElementById('matchesCampo' + campo);
+        const elAdm = document.getElementById('adminMatchesCampo' + campo);
+        const matchArr = Object.entries(_matches)
+          .filter(([, m]) => m.girone === campo)
+          .sort((a, b) => a[1].ts - b[1].ts);
+        const pubHtml = matchArr.map(([mid, m]) => `
+          <div class="match-row">
+            <div class="match-team">${esc(m.t1)}</div>
+            <div class="match-score">
+              <span class="score-val">${m.s1 !== '' ? m.s1 : '–'}</span>
+              <span class="score-dash">:</span>
+              <span class="score-val">${m.s2 !== '' ? m.s2 : '–'}</span>
+            </div>
+            <div class="match-team right">${esc(m.t2)}</div>
+          </div>`).join('') || '<div style="opacity:.38;font-size:.82rem;padding:8px 0;">Nessuna partita.</div>';
+        if (elPub) elPub.innerHTML = pubHtml;
+        const admHtml = matchArr.map(([mid, m]) => `
+          <div class="match-row" style="margin-bottom:6px;">
+            <div class="match-team" style="font-size:.8rem;">${esc(m.t1)}</div>
+            <div class="match-score">
+              <input class="score-inp" id="ms1-${mid}" value="${m.s1 || ''}" placeholder="0" maxlength="2" type="number" min="0">
+              <span class="score-dash">–</span>
+              <input class="score-inp" id="ms2-${mid}" value="${m.s2 || ''}" placeholder="0" maxlength="2" type="number" min="0">
+              <button class="score-save" onclick="saveScore('${mid}')">✓</button>
+            </div>
+            <div class="match-team right" style="font-size:.8rem;">${esc(m.t2)}</div>
+            <button class="btn-del-sm" style="margin-left:6px;" onclick="delMatch('${mid}')">✕</button>
+          </div>`).join('') || '<div style="opacity:.38;font-size:.78rem;padding:6px 0;">Nessuna partita.</div>';
+        if (elAdm) elAdm.innerHTML = admHtml;
       });
-      if (!Object.keys(gironiMap).length) { grid.innerHTML = '<div style="opacity:.38;font-size:.85rem;padding:10px;">Nessuna partita ancora. Aggiungi una partita qui sotto.</div>'; }
-      else {
-        grid.innerHTML = Object.entries(gironiMap).map(([g, teams]) => {
-          const sorted = Object.entries(teams).sort((a, b) => b[1].pts - a[1].pts);
-          return `<div class="girone-card">
-        <div class="girone-hdr"><span>Girone ${g}</span></div>
-        <div class="girone-body">
-          ${sorted.map(([name, s], i) => `<div class="girone-row"><div class="g-rank">${i + 1}</div><div class="g-name">${esc(name)}</div><span class="g-pts">${s.pts} pt</span></div>`).join('')}
-        </div>
-      </div>`;
-        }).join('');
-      }
-      // matches
-      const matchArr = Object.entries(_matches).sort((a, b) => b[1].ts - a[1].ts);
-      matchGrid.innerHTML = matchArr.map(([mid, m]) => `
-    <div class="match-row">
-      <div class="match-team">${esc(m.t1)}</div>
-      <div class="match-score">
-        <input class="score-inp" id="ms1-${mid}" value="${m.s1 || ''}" placeholder="0" maxlength="2" type="number" min="0">
-        <span class="score-dash">–</span>
-        <input class="score-inp" id="ms2-${mid}" value="${m.s2 || ''}" placeholder="0" maxlength="2" type="number" min="0">
-        <button class="score-save" onclick="saveScore('${mid}')">✓</button>
-      </div>
-      <div class="match-team right">${esc(m.t2)}</div>
-      <button class="btn-del-sm" style="margin-left:8px;" onclick="delMatch('${mid}')">✕</button>
-    </div>`).join('') || '<div style="opacity:.38;font-size:.82rem;padding:8px 0;">Nessuna partita.</div>';
     }
     function saveScore(mid) {
       const s1 = document.getElementById('ms1-' + mid).value;
       const s2 = document.getElementById('ms2-' + mid).value;
       _matches[mid].s1 = s1; _matches[mid].s2 = s2;
       saveMatches();
-      // update team stats
       const m = _matches[mid];
-      // Notify if a team is being overtaken
       if (s1 !== '' && s2 !== '') {
-        const winner = parseInt(s1) > parseInt(s2) ? m.t1 : m.t2;
         sendNotif('⚽ Risultato aggiornato', `${m.t1} ${s1}–${s2} ${m.t2}`);
       }
-      renderGironi();
+      renderCampi();
+      renderLeaderboard();
+      renderTeams();
       toast('✅ Punteggio salvato!');
     }
     function delMatch(mid) {
-      delete _matches[mid]; saveMatches(); renderGironi();
+      delete _matches[mid]; saveMatches(); renderCampi(); renderLeaderboard(); renderTeams();
     }
-    function openAddMatch() { document.getElementById('ovMatch').classList.add('open'); }
-    function doAddMatch() {
-      const t1 = document.getElementById('matchT1').value.trim();
-      const t2 = document.getElementById('matchT2').value.trim();
-      const g = document.getElementById('matchGirone').value;
-      if (!t1 || !t2) { toast('⚠️ Inserisci entrambe le squadre'); return; }
+    function addMatchCampo(campo) {
+      const t1 = document.getElementById('campo' + campo + 'T1').value.trim();
+      const t2 = document.getElementById('campo' + campo + 'T2').value.trim();
+      if (!t1 || !t2) { toast('⚠️ Inserisci entrambe le squadre!'); return; }
       const mid = 'mx' + Date.now();
-      _matches[mid] = { girone: g, t1, t2, s1: '', s2: '', ts: Date.now() };
-      saveMatches(); cm('ovMatch');
-      document.getElementById('matchT1').value = '';
-      document.getElementById('matchT2').value = '';
-      renderGironi();
+      _matches[mid] = { girone: campo, t1, t2, s1: '', s2: '', ts: Date.now() };
+      saveMatches();
+      document.getElementById('campo' + campo + 'T1').value = '';
+      document.getElementById('campo' + campo + 'T2').value = '';
+      renderCampi();
+      renderLeaderboard();
+      renderTeams();
+      toast('✅ Partita Campo ' + campo + ' aggiunta!');
     }
-    function renderPlayoff() {
-      const pb = document.getElementById('playoffBracket');
-      if (!pb) return;
-      const rounds = Object.keys(_playoff).length ? _playoff : {
-        'Quarti di Finale': Array(4).fill(null).map((_, i) => ({ t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 'q' + i })),
-        'Semifinali': Array(2).fill(null).map((_, i) => ({ t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 's' + i })),
-        'Finale': [{ t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 'f0' }],
-        '🏆 Vincitore': []
-      };
-      pb.innerHTML = Object.entries(rounds).map(([rName, matches]) => {
-        if (rName === '🏆 Vincitore') {
-          const winner = _playoff['Finale'] && _playoff['Finale'][0] && _playoff['Finale'][0].s1 && _playoff['Finale'][0].s2
-            ? (parseInt(_playoff['Finale'][0].s1) > parseInt(_playoff['Finale'][0].s2) ? _playoff['Finale'][0].t1 : _playoff['Finale'][0].t2) : '?';
-          return `<div class="bracket-round"><div class="bracket-winner"><div class="bw-trophy">🏆</div><div class="bw-label">${esc(winner)}</div></div></div>`;
-        }
-        return `<div class="bracket-round">
-      <div class="bracket-round-title">${esc(rName)}</div>
-      ${matches.map(m => `
-        <div class="bracket-match">
-          <div class="bm-team${m.s1 && m.s2 && parseInt(m.s1) > parseInt(m.s2) ? ' bm-win' : ''}">
-            <span>${esc(m.t1)}</span>
-            <span class="bm-score">${m.s1 || '–'}</span>
-          </div>
-          <div class="bm-team${m.s1 && m.s2 && parseInt(m.s2) > parseInt(m.s1) ? ' bm-win' : ''}">
-            <span>${esc(m.t2)}</span>
-            <span class="bm-score">${m.s2 || '–'}</span>
-          </div>
-        </div>`).join('')}
-    </div>`;
-      }).join('');
-    }
-    function genPlayoff() {
-      // collect top 2 from each girone
-      const gironiMap = {};
-      Object.values(_matches).forEach(m => {
-        if (!gironiMap[m.girone]) gironiMap[m.girone] = {};
-        [m.t1, m.t2].forEach(t => { if (!gironiMap[m.girone][t]) gironiMap[m.girone][t] = { pts: 0 }; });
-        if (m.s1 !== '' && m.s2 !== '') {
-          const s1 = parseInt(m.s1), s2 = parseInt(m.s2);
-          if (s1 > s2) gironiMap[m.girone][m.t1].pts += 3;
-          else if (s2 > s1) gironiMap[m.girone][m.t2].pts += 3;
-        }
-      });
-      const qualificate = Object.values(gironiMap).flatMap(g => Object.entries(g).sort((a, b) => b[1].pts - a[1].pts).slice(0, 2).map(([n]) => n));
-      while (qualificate.length < 8) qualificate.push('TBD');
-      _playoff = {
-        'Quarti di Finale': [
-          { t1: qualificate[0], t2: qualificate[7], s1: '', s2: '', id: 'q0' },
-          { t1: qualificate[1], t2: qualificate[6], s1: '', s2: '', id: 'q1' },
-          { t1: qualificate[2], t2: qualificate[5], s1: '', s2: '', id: 'q2' },
-          { t1: qualificate[3], t2: qualificate[4], s1: '', s2: '', id: 'q3' },
-        ],
-        'Semifinali': [{ t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 's0' }, { t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 's1' }],
-        'Finale': [{ t1: 'TBD', t2: 'TBD', s1: '', s2: '', id: 'f0' }],
-        '🏆 Vincitore': []
-      };
-      savePlayoff(); renderPlayoff(); toast('✅ Bracket generato!');
-    }
+    /* legacy stubs to avoid JS errors */
+    function renderPlayoff() {}
+    function genPlayoff() {}
+    function openAddMatch() {}
+    function doAddMatch() {}
+    function showBracket() {}
+    /* ── keep renderGironi as alias ── */
+    function renderGironi() { renderCampi(); }
+
 
     /* ══════════════════════════════════
        NOTIFICATIONS
@@ -5459,7 +5459,21 @@
     ══════════════════════════════════ */
     function openAdmin() {
       document.getElementById('ovAdmin').classList.add('open');
-      if (adminLoggedIn) { renderPending(); renderAdminRanking(); }
+      if (adminLoggedIn) { renderPending(); renderAdminRanking(); populateAdminTeamSelects(); }
+    }
+    function populateAdminTeamSelects() {
+      ['campoAT1', 'campoAT2', 'campoBT1', 'campoBT2'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const currentVal = sel.value;
+        sel.innerHTML = `<option value="" style="background:#01183d;color:#fff;">Seleziona squadra...</option>`;
+        Object.values(_teams).sort((a, b) => a.name.localeCompare(b.name)).forEach(t => {
+          sel.innerHTML += `<option value="${esc(t.name)}" style="background:#01183d;color:#fff;">${esc(t.name)}</option>`;
+        });
+        if (currentVal && sel.querySelector(`option[value="${currentVal}"]`)) {
+          sel.value = currentVal;
+        }
+      });
     }
     function checkAdminPw() {
       const v = document.getElementById('adminPwInp').value;
@@ -5471,6 +5485,7 @@
         err.style.display = 'none';
         renderPending();
         renderAdminRanking();
+        populateAdminTeamSelects();
       } else {
         err.style.display = 'block';
         document.getElementById('adminPwInp').value = '';
@@ -5575,10 +5590,10 @@
     loadRanking();
     renderTeams();
     renderLeaderboard();
-    renderGironi();
+    renderCampi();
     buildLiveWall();
     startCountdown();
-    startNextMatchCountdown();
+    populateAdminTeamSelects();
     scheduleLeaderboard();
     updateAdminBadge();
     loadWeather();
