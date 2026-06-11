@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="theme-color" content="#03045e">
     <title>Fanta Splash Volley</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         /* ═══════════════════════════════════════
    ROOT & RESET
@@ -60,23 +58,6 @@
                 radial-gradient(ellipse 90% 70% at 20% -10%, rgba(0, 119, 182, 0.55) 0%, transparent 55%),
                 radial-gradient(ellipse 70% 50% at 85% 110%, rgba(0, 180, 216, 0.4) 0%, transparent 55%),
                 linear-gradient(160deg, #010e2e 0%, #01183d 60%, #021a4a 100%);
-        }
-
-            90% {
-                opacity: .4;
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-15vh) scale(1.3);
-            }
-        }
-
-        canvas#pts {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
         }
 
         /* ═══════════════════════════════════════
@@ -3185,6 +3166,7 @@
             background: linear-gradient(135deg, rgba(144, 224, 239, .25), rgba(0, 180, 216, .25));
             transform: translateY(-2px);
         }
+
         /* ═══════════════════════════════════════
    PROSSIMO MATCH WIDGET
 ═══════════════════════════════════════ */
@@ -3399,8 +3381,8 @@
 
     <!-- BG -->
     <div class="bg-layer"></div>
-    
-    <canvas id="pts"></canvas>
+
+
 
     <!-- TOAST -->
     <div class="toast" id="toast"></div>
@@ -3639,7 +3621,7 @@
     </div>
 
 
- 
+
 
     <div class="sec-wrap" id="secMappa" style="margin-bottom:28px;">
         <div class="sec-card">
@@ -3659,7 +3641,7 @@
                 <div class="ww-loading">🌤️ Caricamento meteo Fellegara…</div>
             </div>
         </div>
-    </div>   <!-- ══ MODAL: AGGIUNGI SQUADRA ══ -->
+    </div> <!-- ══ MODAL: AGGIUNGI SQUADRA ══ -->
     <div class="overlay" id="ovAdd" onclick="ocl(event,'ovAdd')">
         <div class="modal">
             <h2>🏐 Nuova Squadra</h2>
@@ -3976,29 +3958,7 @@
         function saveNextMatch() { localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
         function saveFavs() { localStorage.setItem(K_FAVS, JSON.stringify(_favs)); }
 
-        /* ══════════════════════════════════
-           BG VISUALS (lightweight)
-        ══════════════════════════════════ */
-        /* bgOrbs removed */
 
-        (function particles() {
-            const cv = document.getElementById('pts'), cx = cv.getContext('2d');
-            let W, H, P = [];
-            function sz() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
-            sz(); window.addEventListener('resize', sz);
-            for (let i = 0; i < 50; i++) P.push({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * .0003, vy: (Math.random() - .5) * .0002, r: 1 + Math.random() * 2, a: .1 + Math.random() * .35 });
-            function frame() {
-                cx.clearRect(0, 0, W, H);
-                P.forEach(p => {
-                    p.x += p.vx; p.y += p.vy;
-                    if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0; if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
-                    cx.beginPath(); cx.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
-                    cx.fillStyle = `rgba(144,224,239,${p.a})`; cx.fill();
-                });
-                requestAnimationFrame(frame);
-            }
-            frame();
-        })();
 
         /* ══════════════════════════════════
            TOAST
