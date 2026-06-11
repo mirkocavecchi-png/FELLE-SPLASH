@@ -3525,6 +3525,13 @@
             </div>
             <span>Regolamento</span>
         </button>
+        <button class="tb-item" onclick="openAdmin()" style="background:none;border:none;cursor:pointer;position:relative;">
+            <div class="tb-icon" style="background:linear-gradient(135deg,#00b4d8,#0077b6);display:flex;align-items:center;justify-content:center;font-size:1rem;">
+                🔐
+            </div>
+            <span>Area Admin</span>
+            <span class="admin-badge" id="adminBadge">0</span>
+        </button>
     </div>
 
     <!-- SYNC DOT -->
@@ -3681,7 +3688,51 @@
                             <td><span class="sched-badge playoffs">Playoff</span></td>
                             <td>Quarti di finale</td>
                         </tr>
-                        <t            <!-- panel (shown after login) -->
+                        <tr>
+                            <td>Ven 18 · 21:00</td>
+                            <td>🎉</td>
+                            <td>Serata + musica</td>
+                        </tr>
+                        <tr>
+                            <td>Sab 19 · 09:30</td>
+                            <td><span class="sched-badge playoffs">Playoff</span></td>
+                            <td>Semifinali</td>
+                        </tr>
+                        <tr>
+                            <td>Sab 19 · 14:00</td>
+                            <td><span class="sched-badge playoffs">Playoff</span></td>
+                            <td>Finale 3° posto</td>
+                        </tr>
+                        <tr>
+                            <td>Sab 19 · 16:00</td>
+                            <td><span class="sched-badge finale">🏆 Finale</span></td>
+                            <td>Gran finale + premiazione</td>
+                        </tr>
+                        <tr>
+                            <td>Sab 19 · 18:30</td>
+                            <td>🎊</td>
+                            <td>Festa di chiusura</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADMIN PANEL -->
+    <div class="overlay" id="ovAdmin" onclick="ocl(event,'ovAdmin')">
+        <div class="modal" id="adminModal" style="max-width:520px;transition:max-width .3s ease;">
+            <h2>🔑 Area Admin</h2>
+            <!-- login -->
+            <div id="adminLogin">
+                <p style="opacity:.68;font-size:.85rem;margin-bottom:14px;">Inserisci la password per accedere al pannello di moderazione.</p>
+                <div class="admin-pw-wrap">
+                    <input type="password" id="adminPwInp" placeholder="Password admin…" onkeydown="if(event.key==='Enter')checkAdminPw()">
+                    <div class="admin-pw-err" id="adminPwErr" style="display:none;">❌ Password errata</div>
+                    <button class="btn-ok" onclick="checkAdminPw()">🔓 Accedi</button>
+                </div>
+            </div>
+            <!-- panel (shown after login) -->
             <div id="adminPanel" style="display:none;">
                 <div id="adminPanelContent">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
@@ -3739,12 +3790,12 @@
                         <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊 Classifica Live</div>
                         <div id="adminRankingList" style="margin-bottom:10px;"></div>
                         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            <input type="text" id="rnkName" placeholder="Nome squadra…"
-                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:100px;">
+                            <select id="rnkName"
+                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:100px;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra…</option>
+                            </select>
                             <input type="number" id="rnkPts" placeholder="Punti" min="0"
                                 style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
-                            <input type="text" id="rnkNote" placeholder="Nota (opz.)"
-                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:80px;">
                             <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕ Aggiungi</button>
                         </div>
                     </div>
@@ -4265,7 +4316,6 @@
             _ranking.forEach(r => {
                 if (!pts[r.name]) pts[r.name] = { pts: 0, v: 0, p: 0 };
                 pts[r.name].pts += r.pts || 0;
-                if (r.note) pts[r.name].note = r.note;
             });
 
             const sorted = Object.entries(pts).sort((a, b) => b[1].pts - a[1].pts);
@@ -4280,7 +4330,7 @@
           <div class="lb-type">${i + 1}° posto</div>
           <div class="lb-team">${esc(name)}</div>
           <div class="lb-score">${s.pts} pt</div>
-          <div class="lb-votes" style="font-size:.7rem;opacity:.6;">${s.v}V · ${s.p}P${s.note ? ' · ' + esc(s.note) : ''}</div>
+          <div class="lb-votes" style="font-size:.7rem;opacity:.6;">${s.v}V · ${s.p}P</div>
         </div>`).join('')}</div>`;
         }
         function scheduleLeaderboard() { /* classifica gestita solo da admin */ }
@@ -4830,17 +4880,15 @@
            CLASSIFICA GENERALE (admin)
         ══════════════════════════════════ */
         function adminAddRanking() {
-            const name = document.getElementById('rnkName').value.trim();
+            const name = document.getElementById('rnkName').value;
             const pts = parseInt(document.getElementById('rnkPts').value) || 0;
-            const note = document.getElementById('rnkNote').value.trim();
-            if (!name) { toast('⚠️ Inserisci il nome della squadra'); return; }
-            _ranking.push({ name, pts, note });
+            if (!name) { toast('⚠️ Seleziona una squadra'); return; }
+            _ranking.push({ name, pts });
             // sort by pts descending
             _ranking.sort((a, b) => b.pts - a.pts);
             saveRanking();
             document.getElementById('rnkName').value = '';
             document.getElementById('rnkPts').value = '';
-            document.getElementById('rnkNote').value = '';
             renderAdminRanking();
             renderLeaderboard();
             toast('✅ Squadra aggiunta alla classifica!');
@@ -4864,7 +4912,6 @@
           <span style="font-weight:900;color:var(--sand);min-width:22px;">${i + 1}°</span>
           <span style="flex:1;font-weight:700;font-size:.88rem;">${esc(r.name)}</span>
           <span style="background:rgba(255,209,102,.2);border-radius:8px;padding:2px 10px;font-size:.8rem;font-weight:900;color:var(--sand);">${r.pts} pt</span>
-          ${r.note ? `<span style="opacity:.55;font-size:.75rem;">${esc(r.note)}</span>` : ''}
           <button class="btn-del-sm" onclick="adminRemoveRanking(${i})">✕</button>
         </div>`).join('');
         }
@@ -4928,11 +4975,13 @@
             if (adminLoggedIn) { renderPending(); renderAdminRanking(); populateAdminTeamSelects(); }
         }
         function populateAdminTeamSelects() {
-            ['campoAT1', 'campoAT2', 'campoBT1', 'campoBT2'].forEach(id => {
+            ['campoAT1', 'campoAT2', 'campoBT1', 'campoBT2', 'rnkName'].forEach(id => {
                 const sel = document.getElementById(id);
                 if (!sel) return;
                 const currentVal = sel.value;
-                sel.innerHTML = `<option value="" style="background:#01183d;color:#fff;">Seleziona squadra...</option>`;
+                const isRanking = id === 'rnkName';
+                const defaultText = isRanking ? 'Seleziona Squadra…' : 'Seleziona squadra...';
+                sel.innerHTML = `<option value="" style="background:#01183d;color:#fff;">${defaultText}</option>`;
                 Object.values(_teams).sort((a, b) => a.name.localeCompare(b.name)).forEach(t => {
                     sel.innerHTML += `<option value="${esc(t.name)}" style="background:#01183d;color:#fff;">${esc(t.name)}</option>`;
                 });
