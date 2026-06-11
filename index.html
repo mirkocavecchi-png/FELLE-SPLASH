@@ -7,6 +7,9 @@
     <meta name="theme-color" content="#03045e">
     <title>Fanta Splash Volley</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
         /* ═══════════════════════════════════════
    ROOT & RESET
@@ -3678,237 +3681,109 @@
                             <td><span class="sched-badge playoffs">Playoff</span></td>
                             <td>Quarti di finale</td>
                         </tr>
-                        <tr>
-                            <td>Ven 18 · 21:00</td>
-                            <td>🎉</td>
-                            <td>Serata + musica</td>
-                        </tr>
-                        <tr>
-                            <td>Sab 19 · 09:30</td>
-                            <td><span class="sched-badge playoffs">Playoff</span></td>
-                            <td>Semifinali</td>
-                        </tr>
-                        <tr>
-                            <td>Sab 19 · 14:00</td>
-                            <td><span class="sched-badge playoffs">Playoff</span></td>
-                            <td>Finale 3° posto</td>
-                        </tr>
-                        <tr>
-                            <td>Sab 19 · 16:00</td>
-                            <td><span class="sched-badge finale">🏆 Finale</span></td>
-                            <td>Gran finale + premiazione</td>
-                        </tr>
-                        <tr>
-                            <td>Sab 19 · 18:30</td>
-                            <td>🎊</td>
-                            <td>Festa di chiusura</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-
-
-
- <!-- ══ MODAL: AGGIUNGI SQUADRA ══ -->
-    <div class="overlay" id="ovAdd" onclick="ocl(event,'ovAdd')">
-        <div class="modal">
-            <h2>🏐 Nuova Squadra</h2>
-            <div class="form-row">
-                <label for="inp-name">Nome Squadra</label>
-                <input type="text" id="inp-name" placeholder="Es. Beach Warriors…" autocomplete="off"
-                    onkeydown="if(event.key==='Enter'){event.preventDefault();doAdd();}">
-            </div>
-
-            <div class="form-row">
-                <div class="pick-lbl">Scegli Stemma</div>
-                <div class="emoji-grid" id="addEmojiGrid"></div>
-                <div class="pick-lbl" style="margin-top:10px;">Oppure carica immagine</div>
-                <label class="logo-zone">
-                    <input type="file" accept="image/*" id="addLogoFile" onchange="onLogoFile('add')">
-                    <div id="addLogoPrev">
-                        <div class="up-ico">🖼️</div>
-                        <p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>
-                    </div>
-                </label>
-            </div>
-            <div class="modal-btns">
-                <button class="btn-cancel" onclick="cm('ovAdd')">Annulla</button>
-                <button class="btn-ok" onclick="doAdd()">✅ Crea Squadra</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ══ MODAL: MODIFICA STEMMA ══ -->
-    <div class="overlay" id="ovEditLogo" onclick="ocl(event,'ovEditLogo')">
-        <div class="modal">
-            <h2>✏️ Modifica Stemma</h2>
-            <input type="hidden" id="editLogoId">
-            <div class="form-row">
-                <div class="pick-lbl">Scegli Emoji</div>
-                <div class="emoji-grid" id="editEmojiGrid"></div>
-                <div class="pick-lbl" style="margin-top:10px;">Oppure carica immagine</div>
-                <label class="logo-zone">
-                    <input type="file" accept="image/*" id="editLogoFile" onchange="onLogoFile('edit')">
-                    <div id="editLogoPrev">
-                        <div class="up-ico">🖼️</div>
-                        <p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare</p>
-                    </div>
-                </label>
-            </div>
-            <div class="modal-btns">
-                <button class="btn-cancel" onclick="cm('ovEditLogo')">Annulla</button>
-                <button class="btn-ok" onclick="doEditLogo()">💾 Salva</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ══ MODAL: ELIMINA SQUADRA ══ -->
-    <div class="overlay" id="ovDelTeam" onclick="ocl(event,'ovDelTeam')">
-        <div class="modal" style="max-width:320px;text-align:center;">
-            <div style="font-size:2.5rem;margin-bottom:10px;">🗑️</div>
-            <h2 style="font-size:1.2rem;">Eliminare squadra?</h2>
-            <p style="opacity:.7;margin:10px 0 16px;font-size:.87rem;line-height:1.55;">Vuoi eliminare <strong
-                    id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">I video verranno
-                    persi.</span></p>
-            <input type="hidden" id="delTId">
-            <div class="modal-btns">
-                <button class="btn-cancel" onclick="cm('ovDelTeam')">Annulla</button>
-                <button class="btn-del" onclick="doDelTeam()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️
-                    Elimina</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ══ MODAL: ELIMINA MEDIA ══ -->
-    <div class="overlay" id="ovDelMedia" onclick="ocl(event,'ovDelMedia')">
-        <div class="modal" style="max-width:300px;text-align:center;">
-            <div style="font-size:2.2rem;margin-bottom:8px;">🗂️</div>
-            <h2 style="font-size:1.15rem;">Rimuovere contenuto?</h2>
-            <p style="opacity:.68;margin:8px 0 14px;font-size:.85rem;line-height:1.5;">L'azione non è reversibile.</p>
-            <input type="hidden" id="delMId">
-            <input type="hidden" id="delMTid">
-            <div class="modal-btns">
-                <button class="btn-cancel" onclick="cm('ovDelMedia')">Annulla</button>
-                <button class="btn-del" onclick="doDelMedia()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️
-                    Rimuovi</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox" role="dialog" aria-label="Visualizzatore foto">
-        <button class="lb-close" onclick="closeLightbox()" aria-label="Chiudi">✕</button>
-        <button class="lb-nav prev" onclick="lbNav(-1)" aria-label="Foto precedente">‹</button>
-        <div class="lb-img-wrap">
-            <img id="lbImg" src="" alt="Foto squadra in visualizzazione ingrandita">
-        </div>
-        <button class="lb-nav next" onclick="lbNav(1)" aria-label="Foto successiva">›</button>
-        <div class="lb-counter" id="lbCounter"></div>
-        <div class="lb-caption-txt" id="lbCaption"></div>
-    </div>
-
-    <!-- ADMIN FAB -->
-    <button class="admin-fab" id="adminFab" onclick="openAdmin()" title="Area Admin">
-        🔐<span class="admin-badge" id="adminBadge">0</span>
-    </button>
-
-    <!-- MODAL: ADMIN PANEL -->
-    <div class="overlay" id="ovAdmin" onclick="ocl(event,'ovAdmin')">
-        <div class="modal" style="max-width:520px;">
-            <h2>🔐 Area Admin</h2>
-            <!-- login -->
-            <div id="adminLogin">
-                <p style="opacity:.68;font-size:.85rem;margin-bottom:14px;">Inserisci la password per accedere al
-                    pannello di
-                    moderazione.</p>
-                <div class="admin-pw-wrap">
-                    <input type="password" id="adminPwInp" placeholder="Password admin…"
-                        onkeydown="if(event.key==='Enter')checkAdminPw()">
-                    <div class="admin-pw-err" id="adminPwErr">❌ Password errata</div>
-                    <button class="btn-ok" onclick="checkAdminPw()">🔓 Accedi</button>
-                </div>
-            </div>
-            <!-- panel (shown after login) -->
+                        <t            <!-- panel (shown after login) -->
             <div id="adminPanel" style="display:none;">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-                    <span style="font-size:.82rem;opacity:.6;">Area di controllo torneo</span>
-                    <button class="btn-del-sm" onclick="adminLogout()">🚪 Esci</button>
-                </div>
-                <!-- GESTIONE SQUADRE -->
-                <div
-                    style="background:rgba(82,183,136,.08);border:1px solid rgba(82,183,136,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                    <div style="font-weight:900;font-size:.88rem;color:#52b788;margin-bottom:12px;">🏐 Gestione Squadre
+                <div id="adminPanelContent">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                        <span style="font-size:.82rem;opacity:.6;">Area di controllo torneo</span>
+                        <button class="btn-del-sm" onclick="adminLogout()">🚪 Esci</button>
                     </div>
-                    <button class="btn-ok"
-                        style="background:linear-gradient(135deg,#52b788,#2d6a4f);width:100%;margin-top:2px;"
-                        onclick="openAdd()">➕ Aggiungi Nuova Squadra</button>
-                </div>
-                <!-- CAMPO A -->
-                <div
-                    style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                    <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A –
-                        Partite</div>
-                    <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
-                    <div style="display:flex;flex-direction:column;gap:6px;">
-                        <select id="campoAT1"
-                            style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                            <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
-                        </select>
-                        <select id="campoAT2"
-                            style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                            <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
-                        </select>
-                        <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi Partita
-                            Campo
-                            A</button>
+                    <!-- GESTIONE SQUADRE -->
+                    <div
+                        style="background:rgba(82,183,136,.08);border:1px solid rgba(82,183,136,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+                        <div style="font-weight:900;font-size:.88rem;color:#52b788;margin-bottom:12px;">🏐 Gestione Squadre</div>
+                        <button class="btn-ok" id="btnOpenAdd"
+                            style="background:linear-gradient(135deg,#52b788,#2d6a4f);width:100%;margin-top:2px;"
+                            onclick="openAdd()">➕ Aggiungi Nuova Squadra</button>
+                        <div id="adminTeamList" style="margin-top:10px;"></div>
                     </div>
-                </div>
-                <!-- CAMPO B -->
-                <div
-                    style="background:rgba(255,183,3,.08);border:1px solid rgba(255,183,3,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                    <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B –
-                        Partite</div>
-                    <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
-                    <div style="display:flex;flex-direction:column;gap:6px;">
-                        <select id="campoBT1"
-                            style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                            <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
-                        </select>
-                        <select id="campoBT2"
-                            style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                            <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
-                        </select>
-                        <button class="btn-ok"
-                            style="margin-top:2px;background:linear-gradient(135deg,#ffb703,#e85d04);"
-                            onclick="addMatchCampo('B')">➕ Aggiungi Partita Campo B</button>
+                    <!-- CAMPO A -->
+                    <div
+                        style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A – Partite</div>
+                        <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <select id="campoAT1"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
+                            </select>
+                            <select id="campoAT2"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
+                            </select>
+                            <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi Partita Campo A</button>
+                        </div>
                     </div>
-                </div>
-                <!-- CLASSIFICA LIVE -->
-                <div
-                    style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
-                    <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊 Classifica
-                        Live
+                    <!-- CAMPO B -->
+                    <div
+                        style="background:rgba(255,183,3,.08);border:1px solid rgba(255,183,3,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B – Partite</div>
+                        <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <select id="campoBT1"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
+                            </select>
+                            <select id="campoBT2"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
+                            </select>
+                            <button class="btn-ok"
+                                style="margin-top:2px;background:linear-gradient(135deg,#ffb703,#e85d04);"
+                                onclick="addMatchCampo('B')">➕ Aggiungi Partita Campo B</button>
+                        </div>
                     </div>
-                    <div id="adminRankingList" style="margin-bottom:10px;"></div>
-                    <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                        <input type="text" id="rnkName" placeholder="Nome squadra…"
-                            style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:100px;">
-                        <input type="number" id="rnkPts" placeholder="Punti" min="0"
-                            style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
-                        <input type="text" id="rnkNote" placeholder="Nota (opz.)"
-                            style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:80px;">
-                        <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕ Aggiungi</button>
+                    <!-- CLASSIFICA LIVE -->
+                    <div
+                        style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊 Classifica Live</div>
+                        <div id="adminRankingList" style="margin-bottom:10px;"></div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                            <input type="text" id="rnkName" placeholder="Nome squadra…"
+                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:100px;">
+                            <input type="number" id="rnkPts" placeholder="Punti" min="0"
+                                style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
+                            <input type="text" id="rnkNote" placeholder="Nota (opz.)"
+                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:80px;">
+                            <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕ Aggiungi</button>
+                        </div>
                     </div>
-                </div>
-                <!-- PENDING MEDIA -->
-                <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎬 Video in attesa di approvazione</div>
-                <div id="pendingList">
-                    <div style="opacity:.38;font-size:.85rem;padding:10px;">Nessun contenuto in attesa.</div>
-                </div>
-            </div>
+                    <!-- PENDING MEDIA -->
+                    <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎥 Video in attesa di approvazione</div>
+                    <div id="pendingList">
+                        <div style="opacity:.38;font-size:.85rem;padding:10px;">Nessun contenuto in attesa.</div>
+                    </div>
+                </div><!-- /adminPanelContent -->
+
+                <!-- ═══ PANNELLO INLINE: NUOVA SQUADRA ═══ -->
+                <div id="inlineAddPanel" style="display:none;border-left:1.5px solid rgba(144,224,239,.2);padding-left:20px;min-width:260px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                        <span style="font-weight:900;font-size:.95rem;color:var(--sand);">🏐 Nuova Squadra</span>
+                        <button class="btn-del-sm" onclick="closeInlineAdd()">✕ Chiudi</button>
+                    </div>
+                    <div class="form-row">
+                        <label for="inp-name">Nome Squadra</label>
+                        <input type="text" id="inp-name" placeholder="Es. Beach Warriors…" autocomplete="off"
+                            onkeydown="if(event.key==='Enter'){event.preventDefault();doAdd();}">
+                    </div>
+                    <div class="form-row">
+                        <div class="pick-lbl">Scegli Stemma</div>
+                        <div class="emoji-grid" id="addEmojiGrid"></div>
+                        <div class="pick-lbl" style="margin-top:10px;">Oppure carica immagine</div>
+                        <label class="logo-zone" style="padding:10px;">
+                            <input type="file" accept="image/*" id="addLogoFile" onchange="onLogoFile('add')">
+                            <div id="addLogoPrev">
+                                <div class="up-ico">🖼️</div>
+                                <p style="font-size:.75rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="modal-btns">
+                        <button class="btn-cancel" onclick="closeInlineAdd()">Annulla</button>
+                        <button class="btn-ok" onclick="doAdd()">✅ Crea Squadra</button>
+                    </div>
+                </div><!-- /inlineAddPanel -->
+            </div><!-- /adminPanel -->
         </div>
     </div>
 
@@ -3990,34 +3865,112 @@
         /* ══════════════════════════════════
            PERSISTENCE  (localStorage)
         ══════════════════════════════════ */
+        /* ══════════════════════════════════
+           FIREBASE CONFIG
+           ⚠️  Crea un progetto su https://console.firebase.google.com
+               e sostituisci questi valori con i tuoi
+        ══════════════════════════════════ */
+        const FB_CONFIG = {
+            apiKey:            "AIzaSy_SOSTITUISCI_CON_TUA_API_KEY",
+            authDomain:        "TUOPROGETTO.firebaseapp.com",
+            databaseURL:       "https://TUOPROGETTO-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId:         "TUOPROGETTO",
+            storageBucket:     "TUOPROGETTO.appspot.com",
+            messagingSenderId: "000000000000",
+            appId:             "1:000000000000:web:0000000000000000000000"
+        };
+
+        let _db = null;  // Firebase database reference (null = offline mode)
+        function fbInit() {
+            try {
+                if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
+                _db = firebase.database();
+            } catch(e) {
+                console.warn('⚠️ Firebase non configurato, uso localStorage', e);
+                _db = null;
+            }
+        }
+
+        /* Scrive un nodo Firebase e anche localStorage come cache */
+        function fbSet(path, val) {
+            try { if (_db) _db.ref(path).set(val); } catch(e) {}
+            localStorage.setItem('fsv6_' + path.replace(/\//g,'_'), JSON.stringify(val));
+        }
+        /* Legge localStorage come fallback immediato */
+        function fbRead(path, def) {
+            const local = localStorage.getItem('fsv6_' + path.replace(/\//g,'_'));
+            return local ? JSON.parse(local) : def;
+        }
+
+        /* ══════════════════════════════════
+           PERSISTENCE  (Firebase + localStorage fallback)
+        ══════════════════════════════════ */
         function getUid() {
             let u = localStorage.getItem(K_UID);
             if (!u) { u = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8); localStorage.setItem(K_UID, u); }
             return u;
         }
         function load() {
-            _teams = JSON.parse(localStorage.getItem(K_TEAMS) || '{}');
-            _media = JSON.parse(localStorage.getItem(K_MEDIA) || '{}');
-            _myVotes = JSON.parse(localStorage.getItem(K_VOTES) || '{}');
-            _comments = JSON.parse(localStorage.getItem(K_COMMENTS) || '{}');
-            _matches = JSON.parse(localStorage.getItem(K_MATCHES) || '{}');
-            _playoff = JSON.parse(localStorage.getItem(K_PLAYOFF) || '{}');
-            _roster = JSON.parse(localStorage.getItem(K_ROSTER) || '{}');
-            _tstats = JSON.parse(localStorage.getItem(K_TSTATS) || '{}');
-            _pending = JSON.parse(localStorage.getItem(K_PENDING) || '{}');
-            _nextMatch = JSON.parse(localStorage.getItem(K_NEXTMATCH) || '{}');
-            _favs = JSON.parse(localStorage.getItem(K_FAVS) || '[]');
+            // Carica da localStorage come stato iniziale immediato
+            _teams     = JSON.parse(localStorage.getItem(K_TEAMS)    || '{}');
+            _media     = JSON.parse(localStorage.getItem(K_MEDIA)    || '{}');
+            _myVotes   = JSON.parse(localStorage.getItem(K_VOTES)    || '{}');
+            _comments  = JSON.parse(localStorage.getItem(K_COMMENTS) || '{}');
+            _matches   = JSON.parse(localStorage.getItem(K_MATCHES)  || '{}');
+            _playoff   = JSON.parse(localStorage.getItem(K_PLAYOFF)  || '{}');
+            _roster    = JSON.parse(localStorage.getItem(K_ROSTER)   || '{}');
+            _tstats    = JSON.parse(localStorage.getItem(K_TSTATS)   || '{}');
+            _pending   = JSON.parse(localStorage.getItem(K_PENDING)  || '{}');
+            _nextMatch = JSON.parse(localStorage.getItem(K_NEXTMATCH)|| '{}');
+            _favs      = JSON.parse(localStorage.getItem(K_FAVS)     || '[]');
         }
-        function saveTeams() { localStorage.setItem(K_TEAMS, JSON.stringify(_teams)); }
-        function saveMedia() { localStorage.setItem(K_MEDIA, JSON.stringify(_media)); }
-        function saveVotes() { localStorage.setItem(K_VOTES, JSON.stringify(_myVotes)); }
-        function saveComments() { localStorage.setItem(K_COMMENTS, JSON.stringify(_comments)); }
-        function saveMatches() { localStorage.setItem(K_MATCHES, JSON.stringify(_matches)); }
-        function saveRoster() { localStorage.setItem(K_ROSTER, JSON.stringify(_roster)); }
-        function saveTstats() { localStorage.setItem(K_TSTATS, JSON.stringify(_tstats)); }
-        function savePending() { localStorage.setItem(K_PENDING, JSON.stringify(_pending)); }
-        function saveNextMatch() { localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
-        function saveFavs() { localStorage.setItem(K_FAVS, JSON.stringify(_favs)); }
+
+        /* Avvia i listener Firebase in tempo reale */
+        function fbListen() {
+            if (!_db) return;
+            const ref = _db.ref('fsv6');
+            ref.child('teams').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _teams = v; localStorage.setItem(K_TEAMS, JSON.stringify(v)); }
+                renderTeams(); populateAdminTeamSelects(); renderAdminTeamList();
+            });
+            ref.child('matches').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _matches = v; localStorage.setItem(K_MATCHES, JSON.stringify(v)); }
+                renderCampi(); renderLeaderboard(); renderTeams();
+            });
+            ref.child('media').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _media = v; localStorage.setItem(K_MEDIA, JSON.stringify(v)); }
+                renderTeams(); buildLiveWall(); renderLeaderboard();
+            });
+            ref.child('pending').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _pending = v; localStorage.setItem(K_PENDING, JSON.stringify(v)); }
+                updateAdminBadge();
+                if (adminLoggedIn) renderPending();
+            });
+            ref.child('ranking').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _ranking = v; localStorage.setItem('fsv6_ranking', JSON.stringify(v)); }
+                renderLeaderboard();
+                if (adminLoggedIn) renderAdminRanking();
+            });
+            ref.child('roster').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _roster = v; localStorage.setItem(K_ROSTER, JSON.stringify(v)); }
+            });
+            ref.child('nextMatch').on('value', snap => {
+                const v = snap.val(); if (v !== null) { _nextMatch = v; localStorage.setItem(K_NEXTMATCH, JSON.stringify(v)); }
+                startNextMatchCountdown();
+            });
+        }
+
+        function saveTeams()    { if (_db) _db.ref('fsv6/teams').set(_teams);     localStorage.setItem(K_TEAMS,    JSON.stringify(_teams)); }
+        function saveMedia()    { if (_db) _db.ref('fsv6/media').set(_media);     localStorage.setItem(K_MEDIA,    JSON.stringify(_media)); }
+        function saveVotes()    { localStorage.setItem(K_VOTES,    JSON.stringify(_myVotes)); }
+        function saveComments() { if (_db) _db.ref('fsv6/comments').set(_comments); localStorage.setItem(K_COMMENTS, JSON.stringify(_comments)); }
+        function saveMatches()  { if (_db) _db.ref('fsv6/matches').set(_matches); localStorage.setItem(K_MATCHES,  JSON.stringify(_matches)); }
+        function saveRoster()   { if (_db) _db.ref('fsv6/roster').set(_roster);   localStorage.setItem(K_ROSTER,   JSON.stringify(_roster)); }
+        function saveTstats()   { localStorage.setItem(K_TSTATS,   JSON.stringify(_tstats)); }
+        function savePending()  { if (_db) _db.ref('fsv6/pending').set(_pending); localStorage.setItem(K_PENDING,  JSON.stringify(_pending)); }
+        function saveNextMatch(){ if (_db) _db.ref('fsv6/nextMatch').set(_nextMatch); localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
+        function saveFavs()     { localStorage.setItem(K_FAVS,     JSON.stringify(_favs)); }
+        function saveRanking()  { if (_db) _db.ref('fsv6/ranking').set(_ranking); localStorage.setItem('fsv6_ranking', JSON.stringify(_ranking)); }
 
 
 
@@ -4091,12 +4044,40 @@
         function openAdd() {
             addEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
             addImg = null;
-            const ni = document.getElementById('inp-name'); ni.value = '';
-            document.getElementById('addLogoFile').value = '';
-            document.getElementById('addLogoPrev').innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>';
-            mkEmojiGrid('addEmojiGrid', () => addEmoji, em => { addEmoji = em; addImg = null; document.getElementById('addLogoPrev').innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>'; });
-            document.getElementById('ovAdd').classList.add('open');
-            setTimeout(() => ni.focus(), 80);
+            const ni = document.getElementById('inp-name'); if (ni) ni.value = '';
+            const lf = document.getElementById('addLogoFile'); if (lf) lf.value = '';
+            const lp = document.getElementById('addLogoPrev');
+            if (lp) lp.innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>';
+            mkEmojiGrid('addEmojiGrid', () => addEmoji, em => {
+                addEmoji = em; addImg = null;
+                const lp2 = document.getElementById('addLogoPrev');
+                if (lp2) lp2.innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>';
+            });
+            // Mostra il pannello inline a fianco nell'admin panel
+            const panel = document.getElementById('inlineAddPanel');
+            const modal = document.getElementById('adminModal');
+            if (panel) panel.style.display = 'block';
+            if (modal) {
+                modal.style.maxWidth = '900px';
+                modal.style.display = 'flex';
+                modal.style.gap = '24px';
+                modal.style.alignItems = 'flex-start';
+                // Wrappa il contenuto admin in una colonna
+                const adminContent = document.getElementById('adminPanelContent');
+                if (adminContent) adminContent.style.flex = '1';
+            }
+            setTimeout(() => { if (ni) ni.focus(); }, 80);
+        }
+        function closeInlineAdd() {
+            const panel = document.getElementById('inlineAddPanel');
+            const modal = document.getElementById('adminModal');
+            if (panel) panel.style.display = 'none';
+            if (modal) {
+                modal.style.maxWidth = '520px';
+                modal.style.display = '';
+                modal.style.gap = '';
+                modal.style.alignItems = '';
+            }
         }
 
         function doAdd() {
@@ -4112,7 +4093,7 @@
             const id = 't' + Date.now() + Math.random().toString(36).slice(2, 6);
             _teams[id] = { name, logo, logoType, girone, createdAt: Date.now() };
             saveTeams();
-            cm('ovAdd');
+            closeInlineAdd();
             renderTeams();
             renderLeaderboard();
             renderGironi();
@@ -4340,7 +4321,6 @@
                     const adminBtns = adminLoggedIn ? `
                         <div class="tt-admin-btns">
                             <button class="tt-admin-btn" onclick="openEditLogo('${t.id}')" title="Modifica stemma">✏️</button>
-                            <button class="tt-admin-btn del" onclick="openDelTeam('${t.id}')" title="Elimina squadra">🗑️</button>
                         </div>` : '';
                     cell.innerHTML = `
                         <span class="tt-num">${i + 1}</span>
@@ -4967,11 +4947,14 @@
             if (v === ADMIN_PW) {
                 adminLoggedIn = true;
                 document.getElementById('adminLogin').style.display = 'none';
-                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'flex';
+                document.getElementById('adminPanel').style.gap = '0';
                 err.style.display = 'none';
                 renderPending();
                 renderAdminRanking();
+                renderAdminTeamList();
                 populateAdminTeamSelects();
+                renderTeams();
             } else {
                 err.style.display = 'block';
                 document.getElementById('adminPwInp').value = '';
@@ -5070,8 +5053,24 @@
         }
 
         /* ══════════════════════════════════
+           ADMIN TEAM LIST (elimina nell'admin panel)
+        ══════════════════════════════════ */
+        function renderAdminTeamList() {
+            const el = document.getElementById('adminTeamList'); if (!el) return;
+            const teams = Object.entries(_teams).sort((a,b) => a[1].createdAt - b[1].createdAt);
+            if (!teams.length) { el.innerHTML = '<div style="opacity:.4;font-size:.8rem;padding:4px 0;">Nessuna squadra.</div>'; return; }
+            el.innerHTML = teams.map(([id,t],i) => `
+              <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+                <span style="font-weight:900;color:var(--foam);min-width:20px;font-size:.8rem;">${i+1}</span>
+                <span style="flex:1;font-weight:700;font-size:.86rem;">${esc(t.name)}</span>
+                <button class="btn-del-sm" onclick="openDelTeam('${id}')">🗑️ Elimina</button>
+              </div>`).join('');
+        }
+
+        /* ══════════════════════════════════
            BOOT
         ══════════════════════════════════ */
+        fbInit();
         load();
         loadRanking();
         renderTeams();
@@ -5083,6 +5082,7 @@
         scheduleLeaderboard();
         updateAdminBadge();
         loadWeather();
+        fbListen();  // attiva sync in tempo reale con Firebase
     </script>
 </body>
 
