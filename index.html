@@ -686,10 +686,15 @@
         }
 
         @media(max-width: 560px) {
-            .teams-table { grid-template-columns: 1fr; }
+            .teams-table {
+                grid-template-columns: 1fr;
+            }
         }
+
         @media(min-width: 561px) and (max-width: 860px) {
-            .teams-table { grid-template-columns: repeat(2, 1fr); }
+            .teams-table {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .tt-cell {
@@ -704,20 +709,23 @@
             min-height: 58px;
             position: relative;
             transition: background .2s, border-color .2s, transform .2s;
-            animation: cIn .3s cubic-bezier(.34,1.2,.64,1) both;
+            animation: cIn .3s cubic-bezier(.34, 1.2, .64, 1) both;
         }
+
         .tt-cell:not(.empty):hover {
-            background: rgba(255,255,255,.13);
-            border-color: rgba(144,224,239,.4);
+            background: rgba(255, 255, 255, .13);
+            border-color: rgba(144, 224, 239, .4);
             transform: translateY(-2px);
-            box-shadow: 0 8px 28px rgba(0,0,0,.22);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .22);
         }
+
         .tt-cell.empty {
             border-style: dashed;
-            border-color: rgba(144,224,239,.1);
+            border-color: rgba(144, 224, 239, .1);
             opacity: .35;
             cursor: default;
         }
+
         .tt-num {
             font-size: .68rem;
             font-weight: 900;
@@ -727,21 +735,28 @@
             text-align: right;
             flex-shrink: 0;
         }
+
         .tt-logo {
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,.18);
-            background: rgba(255,255,255,.1);
+            border: 2px solid rgba(255, 255, 255, .18);
+            background: rgba(255, 255, 255, .1);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.15rem;
             flex-shrink: 0;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,.25);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
         }
-        .tt-logo img { width:100%; height:100%; object-fit:cover; }
+
+        .tt-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .tt-name {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
@@ -752,8 +767,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            text-shadow: 0 1px 6px rgba(0,180,216,.2);
+            text-shadow: 0 1px 6px rgba(0, 180, 216, .2);
         }
+
         .tt-admin-btns {
             display: flex;
             gap: 4px;
@@ -761,10 +777,14 @@
             opacity: 0;
             transition: opacity .18s;
         }
-        .tt-cell:hover .tt-admin-btns { opacity: 1; }
+
+        .tt-cell:hover .tt-admin-btns {
+            opacity: 1;
+        }
+
         .tt-admin-btn {
-            background: rgba(255,255,255,.1);
-            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .15);
             color: #fff;
             border-radius: 7px;
             padding: 3px 7px;
@@ -773,9 +793,20 @@
             transition: background .15s;
             white-space: nowrap;
         }
-        .tt-admin-btn:hover { background: rgba(255,255,255,.22); }
-        .tt-admin-btn.del { border-color: rgba(255,71,87,.3); color: #ff9a9a; }
-        .tt-admin-btn.del:hover { background: rgba(255,71,87,.22); color:#fff; }
+
+        .tt-admin-btn:hover {
+            background: rgba(255, 255, 255, .22);
+        }
+
+        .tt-admin-btn.del {
+            border-color: rgba(255, 71, 87, .3);
+            color: #ff9a9a;
+        }
+
+        .tt-admin-btn.del:hover {
+            background: rgba(255, 71, 87, .22);
+            color: #fff;
+        }
 
         /* ═══════════════════════════════════════
    TEAM CARD
@@ -3520,13 +3551,16 @@
         <button class="tb-item" onclick="dlRegolamento()" style="background:none;border:none;cursor:pointer;">
             <div class="tb-icon" style="background:linear-gradient(135deg,#ffd166,#e85d04);">
                 <svg viewBox="0 0 24 24">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-3h3v3H16l-4 4z"/>
+                    <path
+                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-3h3v3H16l-4 4z" />
                 </svg>
             </div>
             <span>Regolamento</span>
         </button>
-        <button class="tb-item" onclick="openAdmin()" style="background:none;border:none;cursor:pointer;position:relative;">
-            <div class="tb-icon" style="background:linear-gradient(135deg,#00b4d8,#0077b6);display:flex;align-items:center;justify-content:center;font-size:1rem;">
+        <button class="tb-item" onclick="openAdmin()"
+            style="background:none;border:none;cursor:pointer;position:relative;">
+            <div class="tb-icon"
+                style="background:linear-gradient(135deg,#00b4d8,#0077b6);display:flex;align-items:center;justify-content:center;font-size:1rem;">
                 🔐
             </div>
             <span>Area Admin</span>
@@ -3725,9 +3759,11 @@
             <h2>🔑 Area Admin</h2>
             <!-- login -->
             <div id="adminLogin">
-                <p style="opacity:.68;font-size:.85rem;margin-bottom:14px;">Inserisci la password per accedere al pannello di moderazione.</p>
+                <p style="opacity:.68;font-size:.85rem;margin-bottom:14px;">Inserisci la password per accedere al
+                    pannello di moderazione.</p>
                 <div class="admin-pw-wrap">
-                    <input type="password" id="adminPwInp" placeholder="Password admin…" onkeydown="if(event.key==='Enter')checkAdminPw()">
+                    <input type="password" id="adminPwInp" placeholder="Password admin…"
+                        onkeydown="if(event.key==='Enter')checkAdminPw()">
                     <div class="admin-pw-err" id="adminPwErr" style="display:none;">❌ Password errata</div>
                     <button class="btn-ok" onclick="checkAdminPw()">🔓 Accedi</button>
                 </div>
@@ -3742,7 +3778,8 @@
                     <!-- GESTIONE SQUADRE -->
                     <div
                         style="background:rgba(82,183,136,.08);border:1px solid rgba(82,183,136,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:#52b788;margin-bottom:12px;">🏐 Gestione Squadre</div>
+                        <div style="font-weight:900;font-size:.88rem;color:#52b788;margin-bottom:12px;">🏐 Gestione
+                            Squadre</div>
                         <button class="btn-ok" id="btnOpenAdd"
                             style="background:linear-gradient(135deg,#52b788,#2d6a4f);width:100%;margin-top:2px;"
                             onclick="openAdd()">➕ Aggiungi Nuova Squadra</button>
@@ -3751,7 +3788,8 @@
                     <!-- CAMPO A -->
                     <div
                         style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A – Partite</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A –
+                            Partite</div>
                         <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
                         <div style="display:flex;flex-direction:column;gap:6px;">
                             <select id="campoAT1"
@@ -3762,13 +3800,15 @@
                                 style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
                                 <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
                             </select>
-                            <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi Partita Campo A</button>
+                            <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi
+                                Partita Campo A</button>
                         </div>
                     </div>
                     <!-- CAMPO B -->
                     <div
                         style="background:rgba(255,183,3,.08);border:1px solid rgba(255,183,3,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B – Partite</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B –
+                            Partite</div>
                         <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
                         <div style="display:flex;flex-direction:column;gap:6px;">
                             <select id="campoBT1"
@@ -3787,7 +3827,8 @@
                     <!-- CLASSIFICA LIVE -->
                     <div
                         style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊 Classifica Live</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊
+                            Classifica Live</div>
                         <div id="adminRankingList" style="margin-bottom:10px;"></div>
                         <div style="display:flex;gap:6px;flex-wrap:wrap;">
                             <select id="rnkName"
@@ -3796,18 +3837,21 @@
                             </select>
                             <input type="number" id="rnkPts" placeholder="Punti" min="0"
                                 style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
-                            <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕ Aggiungi</button>
+                            <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕
+                                Aggiungi</button>
                         </div>
                     </div>
                     <!-- PENDING MEDIA -->
-                    <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎥 Video in attesa di approvazione</div>
+                    <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎥 Video in attesa di approvazione
+                    </div>
                     <div id="pendingList">
                         <div style="opacity:.38;font-size:.85rem;padding:10px;">Nessun contenuto in attesa.</div>
                     </div>
                 </div><!-- /adminPanelContent -->
 
                 <!-- ═══ PANNELLO INLINE: NUOVA SQUADRA ═══ -->
-                <div id="inlineAddPanel" style="display:none;border-left:1.5px solid rgba(144,224,239,.2);padding-left:20px;min-width:260px;">
+                <div id="inlineAddPanel"
+                    style="display:none;border-left:1.5px solid rgba(144,224,239,.2);padding-left:20px;min-width:260px;">
                     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
                         <span style="font-weight:900;font-size:.95rem;color:var(--sand);">🏐 Nuova Squadra</span>
                         <button class="btn-del-sm" onclick="closeInlineAdd()">✕ Chiudi</button>
@@ -3835,6 +3879,59 @@
                     </div>
                 </div><!-- /inlineAddPanel -->
             </div><!-- /adminPanel -->
+        </div>
+    </div>
+
+    <!-- ══ MODAL: MODIFICA STEMMA ══ -->
+    <div class="overlay" id="ovEditLogo" onclick="ocl(event,'ovEditLogo')">
+        <div class="modal">
+            <h2>✏️ Modifica Stemma</h2>
+            <input type="hidden" id="editLogoId">
+            <div class="form-row">
+                <div class="pick-lbl">Scegli Emoji</div>
+                <div class="emoji-grid" id="editEmojiGrid"></div>
+                <div class="pick-lbl" style="margin-top:10px;">Oppure carica immagine</div>
+                <label class="logo-zone" style="padding:10px;">
+                    <input type="file" accept="image/*" id="editLogoFile" onchange="onLogoFile('edit')">
+                    <div id="editLogoPrev">
+                        <div class="up-ico">🖼️</div>
+                        <p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare</p>
+                    </div>
+                </label>
+            </div>
+            <div class="modal-btns">
+                <button class="btn-cancel" onclick="cm('ovEditLogo')">Annulla</button>
+                <button class="btn-ok" onclick="doEditLogo()">💾 Salva</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ MODAL: ELIMINA SQUADRA ══ -->
+    <div class="overlay" id="ovDelTeam" onclick="ocl(event,'ovDelTeam')">
+        <div class="modal" style="max-width:320px;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:10px;">🗑️</div>
+            <h2 style="font-size:1.2rem;">Eliminare squadra?</h2>
+            <p style="opacity:.7;margin:10px 0 16px;font-size:.87rem;line-height:1.55;">Vuoi eliminare <strong id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">Foto e video verranno persi.</span></p>
+            <input type="hidden" id="delTId">
+            <div class="modal-btns">
+                <button class="btn-cancel" onclick="cm('ovDelTeam')">Annulla</button>
+                <button class="btn-del"    onclick="doDelTeam()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️ Elimina</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ MODAL: ELIMINA MEDIA ══ -->
+    <div class="overlay" id="ovDelMedia" onclick="ocl(event,'ovDelMedia')">
+        <div class="modal" style="max-width:300px;text-align:center;">
+            <div style="font-size:2.2rem;margin-bottom:8px;">🗂️</div>
+            <h2 style="font-size:1.15rem;">Rimuovere contenuto?</h2>
+            <p style="opacity:.68;margin:8px 0 14px;font-size:.85rem;line-height:1.5;">L'azione non è reversibile.</p>
+            <input type="hidden" id="delMId">
+            <input type="hidden" id="delMTid">
+            <div class="modal-btns">
+                <button class="btn-cancel" onclick="cm('ovDelMedia')">Annulla</button>
+                <button class="btn-del"    onclick="doDelMedia()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️ Rimuovi</button>
+            </div>
         </div>
     </div>
 
@@ -3922,13 +4019,13 @@
                e sostituisci questi valori con i tuoi
         ══════════════════════════════════ */
         const FB_CONFIG = {
-            apiKey:            "AIzaSy_SOSTITUISCI_CON_TUA_API_KEY",
-            authDomain:        "TUOPROGETTO.firebaseapp.com",
-            databaseURL:       "https://TUOPROGETTO-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId:         "TUOPROGETTO",
-            storageBucket:     "TUOPROGETTO.appspot.com",
+            apiKey: "AIzaSy_SOSTITUISCI_CON_TUA_API_KEY",
+            authDomain: "TUOPROGETTO.firebaseapp.com",
+            databaseURL: "https://TUOPROGETTO-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "TUOPROGETTO",
+            storageBucket: "TUOPROGETTO.appspot.com",
             messagingSenderId: "000000000000",
-            appId:             "1:000000000000:web:0000000000000000000000"
+            appId: "1:000000000000:web:0000000000000000000000"
         };
 
         let _db = null;  // Firebase database reference (null = offline mode)
@@ -3936,7 +4033,7 @@
             try {
                 if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
                 _db = firebase.database();
-            } catch(e) {
+            } catch (e) {
                 console.warn('⚠️ Firebase non configurato, uso localStorage', e);
                 _db = null;
             }
@@ -3944,12 +4041,12 @@
 
         /* Scrive un nodo Firebase e anche localStorage come cache */
         function fbSet(path, val) {
-            try { if (_db) _db.ref(path).set(val); } catch(e) {}
-            localStorage.setItem('fsv6_' + path.replace(/\//g,'_'), JSON.stringify(val));
+            try { if (_db) _db.ref(path).set(val); } catch (e) { }
+            localStorage.setItem('fsv6_' + path.replace(/\//g, '_'), JSON.stringify(val));
         }
         /* Legge localStorage come fallback immediato */
         function fbRead(path, def) {
-            const local = localStorage.getItem('fsv6_' + path.replace(/\//g,'_'));
+            const local = localStorage.getItem('fsv6_' + path.replace(/\//g, '_'));
             return local ? JSON.parse(local) : def;
         }
 
@@ -3963,65 +4060,78 @@
         }
         function load() {
             // Carica da localStorage come stato iniziale immediato
-            _teams     = JSON.parse(localStorage.getItem(K_TEAMS)    || '{}');
-            _media     = JSON.parse(localStorage.getItem(K_MEDIA)    || '{}');
-            _myVotes   = JSON.parse(localStorage.getItem(K_VOTES)    || '{}');
-            _comments  = JSON.parse(localStorage.getItem(K_COMMENTS) || '{}');
-            _matches   = JSON.parse(localStorage.getItem(K_MATCHES)  || '{}');
-            _playoff   = JSON.parse(localStorage.getItem(K_PLAYOFF)  || '{}');
-            _roster    = JSON.parse(localStorage.getItem(K_ROSTER)   || '{}');
-            _tstats    = JSON.parse(localStorage.getItem(K_TSTATS)   || '{}');
-            _pending   = JSON.parse(localStorage.getItem(K_PENDING)  || '{}');
-            _nextMatch = JSON.parse(localStorage.getItem(K_NEXTMATCH)|| '{}');
-            _favs      = JSON.parse(localStorage.getItem(K_FAVS)     || '[]');
+            _teams = JSON.parse(localStorage.getItem(K_TEAMS) || '{}');
+            _media = JSON.parse(localStorage.getItem(K_MEDIA) || '{}');
+            _myVotes = JSON.parse(localStorage.getItem(K_VOTES) || '{}');
+            _comments = JSON.parse(localStorage.getItem(K_COMMENTS) || '{}');
+            _matches = JSON.parse(localStorage.getItem(K_MATCHES) || '{}');
+            _playoff = JSON.parse(localStorage.getItem(K_PLAYOFF) || '{}');
+            _roster = JSON.parse(localStorage.getItem(K_ROSTER) || '{}');
+            _tstats = JSON.parse(localStorage.getItem(K_TSTATS) || '{}');
+            _pending = JSON.parse(localStorage.getItem(K_PENDING) || '{}');
+            _nextMatch = JSON.parse(localStorage.getItem(K_NEXTMATCH) || '{}');
+            _favs = JSON.parse(localStorage.getItem(K_FAVS) || '[]');
         }
 
-        /* Avvia i listener Firebase in tempo reale */
         function fbListen() {
             if (!_db) return;
             const ref = _db.ref('fsv6');
             ref.child('teams').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _teams = v; localStorage.setItem(K_TEAMS, JSON.stringify(v)); }
+                const v = snap.val();
+                _teams = v !== null ? v : {};
+                localStorage.setItem(K_TEAMS, JSON.stringify(_teams));
                 renderTeams(); populateAdminTeamSelects(); renderAdminTeamList();
             });
             ref.child('matches').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _matches = v; localStorage.setItem(K_MATCHES, JSON.stringify(v)); }
+                const v = snap.val();
+                _matches = v !== null ? v : {};
+                localStorage.setItem(K_MATCHES, JSON.stringify(_matches));
                 renderCampi(); renderLeaderboard(); renderTeams();
             });
             ref.child('media').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _media = v; localStorage.setItem(K_MEDIA, JSON.stringify(v)); }
+                const v = snap.val();
+                _media = v !== null ? v : {};
+                localStorage.setItem(K_MEDIA, JSON.stringify(_media));
                 renderTeams(); buildLiveWall(); renderLeaderboard();
             });
             ref.child('pending').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _pending = v; localStorage.setItem(K_PENDING, JSON.stringify(v)); }
+                const v = snap.val();
+                _pending = v !== null ? v : {};
+                localStorage.setItem(K_PENDING, JSON.stringify(_pending));
                 updateAdminBadge();
                 if (adminLoggedIn) renderPending();
             });
             ref.child('ranking').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _ranking = v; localStorage.setItem('fsv6_ranking', JSON.stringify(v)); }
+                const v = snap.val();
+                _ranking = v !== null ? v : [];
+                localStorage.setItem('fsv6_ranking', JSON.stringify(_ranking));
                 renderLeaderboard();
                 if (adminLoggedIn) renderAdminRanking();
             });
             ref.child('roster').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _roster = v; localStorage.setItem(K_ROSTER, JSON.stringify(v)); }
+                const v = snap.val();
+                _roster = v !== null ? v : {};
+                localStorage.setItem(K_ROSTER, JSON.stringify(_roster));
             });
             ref.child('nextMatch').on('value', snap => {
-                const v = snap.val(); if (v !== null) { _nextMatch = v; localStorage.setItem(K_NEXTMATCH, JSON.stringify(v)); }
+                const v = snap.val();
+                _nextMatch = v !== null ? v : {};
+                localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch));
                 startNextMatchCountdown();
             });
         }
 
-        function saveTeams()    { if (_db) _db.ref('fsv6/teams').set(_teams);     localStorage.setItem(K_TEAMS,    JSON.stringify(_teams)); }
-        function saveMedia()    { if (_db) _db.ref('fsv6/media').set(_media);     localStorage.setItem(K_MEDIA,    JSON.stringify(_media)); }
-        function saveVotes()    { localStorage.setItem(K_VOTES,    JSON.stringify(_myVotes)); }
+        function saveTeams() { if (_db) _db.ref('fsv6/teams').set(_teams); localStorage.setItem(K_TEAMS, JSON.stringify(_teams)); }
+        function saveMedia() { if (_db) _db.ref('fsv6/media').set(_media); localStorage.setItem(K_MEDIA, JSON.stringify(_media)); }
+        function saveVotes() { localStorage.setItem(K_VOTES, JSON.stringify(_myVotes)); }
         function saveComments() { if (_db) _db.ref('fsv6/comments').set(_comments); localStorage.setItem(K_COMMENTS, JSON.stringify(_comments)); }
-        function saveMatches()  { if (_db) _db.ref('fsv6/matches').set(_matches); localStorage.setItem(K_MATCHES,  JSON.stringify(_matches)); }
-        function saveRoster()   { if (_db) _db.ref('fsv6/roster').set(_roster);   localStorage.setItem(K_ROSTER,   JSON.stringify(_roster)); }
-        function saveTstats()   { localStorage.setItem(K_TSTATS,   JSON.stringify(_tstats)); }
-        function savePending()  { if (_db) _db.ref('fsv6/pending').set(_pending); localStorage.setItem(K_PENDING,  JSON.stringify(_pending)); }
-        function saveNextMatch(){ if (_db) _db.ref('fsv6/nextMatch').set(_nextMatch); localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
-        function saveFavs()     { localStorage.setItem(K_FAVS,     JSON.stringify(_favs)); }
-        function saveRanking()  { if (_db) _db.ref('fsv6/ranking').set(_ranking); localStorage.setItem('fsv6_ranking', JSON.stringify(_ranking)); }
+        function saveMatches() { if (_db) _db.ref('fsv6/matches').set(_matches); localStorage.setItem(K_MATCHES, JSON.stringify(_matches)); }
+        function saveRoster() { if (_db) _db.ref('fsv6/roster').set(_roster); localStorage.setItem(K_ROSTER, JSON.stringify(_roster)); }
+        function saveTstats() { localStorage.setItem(K_TSTATS, JSON.stringify(_tstats)); }
+        function savePending() { if (_db) _db.ref('fsv6/pending').set(_pending); localStorage.setItem(K_PENDING, JSON.stringify(_pending)); }
+        function saveNextMatch() { if (_db) _db.ref('fsv6/nextMatch').set(_nextMatch); localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
+        function saveFavs() { localStorage.setItem(K_FAVS, JSON.stringify(_favs)); }
+        function saveRanking() { if (_db) _db.ref('fsv6/ranking').set(_ranking); localStorage.setItem('fsv6_ranking', JSON.stringify(_ranking)); }
 
 
 
@@ -4447,9 +4557,9 @@
     ${teamBadges(t)}
     <div class="tcard-head">
       ${adminLoggedIn
-        ? `<button class="tcard-logo" onclick="openEditLogo('${t.id}')" title="Modifica stemma">${logoHtml(t)}<span class="edit-hint">✏️</span></button>`
-        : `<div class="tcard-logo" style="cursor:default;">${logoHtml(t)}</div>`
-      }
+                    ? `<button class="tcard-logo" onclick="openEditLogo('${t.id}')" title="Modifica stemma">${logoHtml(t)}<span class="edit-hint">✏️</span></button>`
+                    : `<div class="tcard-logo" style="cursor:default;">${logoHtml(t)}</div>`
+                }
       <div class="tcard-name">${esc(t.name)}</div>
       ${adminLoggedIn ? `<button class="btn-del" onclick="openDelTeam('${t.id}')">🗑️ Elimina</button>` : ''}
     </div>
@@ -5106,11 +5216,11 @@
         ══════════════════════════════════ */
         function renderAdminTeamList() {
             const el = document.getElementById('adminTeamList'); if (!el) return;
-            const teams = Object.entries(_teams).sort((a,b) => a[1].createdAt - b[1].createdAt);
+            const teams = Object.entries(_teams).sort((a, b) => a[1].createdAt - b[1].createdAt);
             if (!teams.length) { el.innerHTML = '<div style="opacity:.4;font-size:.8rem;padding:4px 0;">Nessuna squadra.</div>'; return; }
-            el.innerHTML = teams.map(([id,t],i) => `
+            el.innerHTML = teams.map(([id, t], i) => `
               <div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
-                <span style="font-weight:900;color:var(--foam);min-width:20px;font-size:.8rem;">${i+1}</span>
+                <span style="font-weight:900;color:var(--foam);min-width:20px;font-size:.8rem;">${i + 1}</span>
                 <span style="flex:1;font-weight:700;font-size:.86rem;">${esc(t.name)}</span>
                 <button class="btn-del-sm" onclick="openDelTeam('${id}')">🗑️ Elimina</button>
               </div>`).join('');
