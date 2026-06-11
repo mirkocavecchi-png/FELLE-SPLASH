@@ -672,11 +672,107 @@
             }
         }
 
-        @media(min-width:1100px) {
-            .teams-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        /* ═══════════════════════════════════════
+   TEAMS TABLE (3 col × 10 rows)
+═══════════════════════════════════════ */
+        .teams-table {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
         }
+
+        @media(max-width: 560px) {
+            .teams-table { grid-template-columns: 1fr; }
+        }
+        @media(min-width: 561px) and (max-width: 860px) {
+            .teams-table { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .tt-cell {
+            background: var(--glass);
+            backdrop-filter: blur(16px) saturate(160%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 11px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 58px;
+            position: relative;
+            transition: background .2s, border-color .2s, transform .2s;
+            animation: cIn .3s cubic-bezier(.34,1.2,.64,1) both;
+        }
+        .tt-cell:not(.empty):hover {
+            background: rgba(255,255,255,.13);
+            border-color: rgba(144,224,239,.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(0,0,0,.22);
+        }
+        .tt-cell.empty {
+            border-style: dashed;
+            border-color: rgba(144,224,239,.1);
+            opacity: .35;
+            cursor: default;
+        }
+        .tt-num {
+            font-size: .68rem;
+            font-weight: 900;
+            color: var(--foam);
+            opacity: .55;
+            min-width: 18px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .tt-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,.18);
+            background: rgba(255,255,255,.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,.25);
+        }
+        .tt-logo img { width:100%; height:100%; object-fit:cover; }
+        .tt-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: .88rem;
+            color: #fff;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-shadow: 0 1px 6px rgba(0,180,216,.2);
+        }
+        .tt-admin-btns {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity .18s;
+        }
+        .tt-cell:hover .tt-admin-btns { opacity: 1; }
+        .tt-admin-btn {
+            background: rgba(255,255,255,.1);
+            border: 1px solid rgba(255,255,255,.15);
+            color: #fff;
+            border-radius: 7px;
+            padding: 3px 7px;
+            font-size: .72rem;
+            cursor: pointer;
+            transition: background .15s;
+            white-space: nowrap;
+        }
+        .tt-admin-btn:hover { background: rgba(255,255,255,.22); }
+        .tt-admin-btn.del { border-color: rgba(255,71,87,.3); color: #ff9a9a; }
+        .tt-admin-btn.del:hover { background: rgba(255,71,87,.22); color:#fff; }
 
         /* ═══════════════════════════════════════
    TEAM CARD
@@ -3418,6 +3514,14 @@
             <span class="tb-addr-full">Via della Botte, 7 – Fellegara</span>
             <span class="tb-addr-sm">Fellegara</span>
         </a>
+        <button class="tb-item" onclick="dlRegolamento()" style="background:none;border:none;cursor:pointer;">
+            <div class="tb-icon" style="background:linear-gradient(135deg,#ffd166,#e85d04);">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM12 17l-4-4h2.5v-3h3v3H16l-4 4z"/>
+                </svg>
+            </div>
+            <span>Regolamento</span>
+        </button>
     </div>
 
     <!-- SYNC DOT -->
@@ -3538,13 +3642,7 @@
     <!-- MAPPA + PROGRAMMA -->
     <div class="sec-wrap" id="secProgramma" style="margin-bottom:36px;">
         <div class="sec-card">
-            <div
-                style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:4px;">
-                <div>
-                    <div class="sec-title">FANTASPLASH</div>
-                </div>
-                <button class="dl-btn" style="margin-top:0;" onclick="dlRegolamento()">📄 Scarica Regolamento</button>
-            </div>
+            <div class="sec-title">FANTASPLASH</div>
             <div class="table-wrap">
                 <table class="sched-table">
                     <thead>
@@ -3623,17 +3721,7 @@
                 <input type="text" id="inp-name" placeholder="Es. Beach Warriors…" autocomplete="off"
                     onkeydown="if(event.key==='Enter'){event.preventDefault();doAdd();}">
             </div>
-            <div class="form-row">
-                <label>Girone (opzionale)</label>
-                <select id="inp-girone"
-                    style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:11px;padding:12px 14px;color:#fff;font-family:'Outfit',sans-serif;font-size:.96rem;font-weight:600;outline:none;width:100%;-webkit-appearance:none;cursor:pointer;">
-                    <option value="">Nessun girone</option>
-                    <option value="A">Girone A</option>
-                    <option value="B">Girone B</option>
-                    <option value="C">Girone C</option>
-                    <option value="D">Girone D</option>
-                </select>
-            </div>
+
             <div class="form-row">
                 <div class="pick-lbl">Scegli Stemma</div>
                 <div class="emoji-grid" id="addEmojiGrid"></div>
@@ -4020,7 +4108,7 @@
             }
             const logo = addImg || addEmoji || EMOJIS[0];
             const logoType = addImg ? 'img' : 'emoji';
-            const girone = document.getElementById('inp-girone').value || '';
+            const girone = '';
             const id = 't' + Date.now() + Math.random().toString(36).slice(2, 6);
             _teams[id] = { name, logo, logoType, girone, createdAt: Date.now() };
             saveTeams();
@@ -4217,29 +4305,52 @@
         function scheduleLeaderboard() { /* classifica gestita solo da admin */ }
 
         /* ══════════════════════════════════
-           RENDER TEAMS
+           RENDER TEAMS – tabella 3×10
         ══════════════════════════════════ */
         function renderTeams() {
             const grid = document.getElementById('tGrid'); if (!grid) return;
             grid.innerHTML = '';
-            let arr = Object.entries(_teams).map(([id, t]) => ({ id, ...t })).sort((a, b) => a.createdAt - b.createdAt);
-            // text search
+
+            let arr = Object.entries(_teams)
+                .map(([id, t]) => ({ id, ...t }))
+                .sort((a, b) => a.createdAt - b.createdAt);
+
+            // Ricerca testo
             const sq = document.getElementById('teamSearchInput');
             searchQ = sq ? sq.value.trim().toLowerCase() : '';
-            // apply girone / fav filter
-            if (activeFilter === 'none') arr = arr.filter(t => !t.girone);
-            else if (activeFilter === 'fav') arr = arr.filter(t => _favs.includes(t.id));
-            else if (activeFilter !== 'all') arr = arr.filter(t => t.girone === activeFilter);
-            // apply text search
+            if (activeFilter === 'fav') arr = arr.filter(t => _favs.includes(t.id));
             if (searchQ) arr = arr.filter(t => t.name.toLowerCase().includes(searchQ));
-            // show filter row only when ≥4 teams
-            const filterRow = document.getElementById('gironeFilters');
-            if (filterRow) filterRow.style.display = Object.keys(_teams).length >= 4 ? 'flex' : 'none';
-            if (!arr.length) {
-                grid.innerHTML = `<div class="empty-b"><div class="eico">🏐</div><p>${activeFilter !== 'all' ? 'Nessuna squadra in questo girone.<br>Prova un altro filtro.' : 'Nessuna squadra ancora.<br>Clicca <strong>"Aggiungi Squadra"</strong>!'}</p></div>`;
-                return;
+
+            const table = document.createElement('div');
+            table.className = 'teams-table';
+
+            for (let i = 0; i < 30; i++) {
+                const t = arr[i];
+                const cell = document.createElement('div');
+
+                if (!t) {
+                    cell.className = 'tt-cell empty';
+                    cell.innerHTML = `<span class="tt-num">${i + 1}</span><span style="font-size:.75rem;">— libero —</span>`;
+                } else {
+                    cell.className = 'tt-cell';
+                    cell.id = 'c-' + t.id;
+                    const logoEl = t.logoType === 'img'
+                        ? `<img src="${t.logo}" style="width:100%;height:100%;object-fit:cover;" alt="Logo ${esc(t.name)}">`
+                        : `<span>${t.logo}</span>`;
+                    const adminBtns = adminLoggedIn ? `
+                        <div class="tt-admin-btns">
+                            <button class="tt-admin-btn" onclick="openEditLogo('${t.id}')" title="Modifica stemma">✏️</button>
+                            <button class="tt-admin-btn del" onclick="openDelTeam('${t.id}')" title="Elimina squadra">🗑️</button>
+                        </div>` : '';
+                    cell.innerHTML = `
+                        <span class="tt-num">${i + 1}</span>
+                        <div class="tt-logo">${logoEl}</div>
+                        <div class="tt-name">${esc(t.name)}</div>
+                        ${adminBtns}`;
+                }
+                table.appendChild(cell);
             }
-            arr.forEach(t => { grid.appendChild(buildCard(t)); });
+            grid.appendChild(table);
         }
 
         function logoHtml(t) {
@@ -4286,7 +4397,7 @@
             const isLeader = stats.pts > 0 && stats.pts >= maxPts;
 
             let html = '';
-            if (t.girone) html += `<span class="tbadge champ">Girone ${esc(t.girone)}</span>`;
+
             if (isLeader) html += `<span class="tbadge leader">🏆 Leader</span>`;
             if (isHot) html += `<span class="tbadge hot">🔥 Più Votati</span>`;
             if (isNew) html += `<span class="tbadge newbie">🆕 New Entry</span>`;
@@ -4305,12 +4416,12 @@
     <button class="fav-btn${isFav ? ' on' : ''}" onclick="toggleFav('${t.id}')" title="${isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}">${isFav ? '⭐' : '☆'}</button>
     ${teamBadges(t)}
     <div class="tcard-head">
-      <button class="tcard-logo" onclick="openEditLogo('${t.id}')" title="Modifica stemma">
-        ${logoHtml(t)}
-        <span class="edit-hint">✏️</span>
-      </button>
+      ${adminLoggedIn
+        ? `<button class="tcard-logo" onclick="openEditLogo('${t.id}')" title="Modifica stemma">${logoHtml(t)}<span class="edit-hint">✏️</span></button>`
+        : `<div class="tcard-logo" style="cursor:default;">${logoHtml(t)}</div>`
+      }
       <div class="tcard-name">${esc(t.name)}</div>
-      <button class="btn-del" onclick="openDelTeam('${t.id}')">🗑️ Elimina</button>
+      ${adminLoggedIn ? `<button class="btn-del" onclick="openDelTeam('${t.id}')">🗑️ Elimina</button>` : ''}
     </div>
     <div class="tcard-body">
       <!-- STATS -->
@@ -4318,19 +4429,6 @@
         <span class="stat-pill">✅ <span class="sv">${stats.w}</span> Vinte</span>
         <span class="stat-pill">❌ <span class="sl">${stats.l}</span> Perse</span>
         <span class="stat-pill">🏅 <span class="sp">${stats.pts}</span> Punti</span>
-      </div>
-      <!-- VIDEO -->
-      <div style="margin-top:10px;">
-        <div style="font-size:.78rem;font-weight:800;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">🎬 Video (${vids.length})</div>
-        <div id="pv-${t.id}">
-          ${buildMediaList(vids, 'video', t.id)}
-          <label class="up-zone">
-            <input type="file" accept="video/*" multiple onchange="handleUpload('${t.id}','video',this)">
-            <div class="up-ico">🎬</div><strong>Carica Video</strong>
-            <p>Max 15MB per video</p>
-          </label>
-          <div class="prog" id="pb-${t.id}-video"><div class="prog-f" id="pf-${t.id}-video"></div></div>
-        </div>
       </div>
       <!-- ROSTER -->
       <div class="roster-toggle" onclick="toggleRoster('${t.id}')">
@@ -4341,14 +4439,14 @@
         <div id="rost-list-${t.id}">
           ${roster.map((p, i) => `<div class="player-row"><div class="player-num">${i + 1}</div><div class="player-name">${esc(p.name)}</div><span class="player-role">${esc(p.role)}</span></div>`).join('') || '<div style="opacity:.38;font-size:.8rem;padding:4px 0;">Nessun giocatore ancora.</div>'}
         </div>
-        <div class="roster-add">
+        ${adminLoggedIn ? `<div class="roster-add">
           <input class="roster-inp" id="rost-inp-${t.id}" placeholder="Nome giocatore…">
           <select class="roster-role-sel" id="rost-role-${t.id}">
             <option>Libero</option><option>Schiacciatore</option><option>Palleggiatore</option>
             <option>Centrale</option><option>Opposto</option><option>Ricevitore</option>
           </select>
           <button class="roster-add-btn" onclick="addPlayer('${t.id}')">➕</button>
-        </div>
+        </div>` : ''}
       </div>
     </div>`;
             return div;
