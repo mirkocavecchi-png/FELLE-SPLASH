@@ -3446,15 +3446,7 @@
         </svg>
     </div>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown-wrap" id="countdownWrap">
-        <div class="countdown-inner" id="cdInner">
-            <div class="cd-box"><span class="cd-num" id="cdG">00</span><span class="cd-lbl">Giorni</span></div>
-            <div class="cd-box"><span class="cd-num" id="cdH">00</span><span class="cd-lbl">Ore</span></div>
-            <div class="cd-box"><span class="cd-num" id="cdM">00</span><span class="cd-lbl">Minuti</span></div>
-            <div class="cd-box"><span class="cd-num" id="cdS">00</span><span class="cd-lbl">Secondi</span></div>
-        </div>
-    </div>
+
 
     <!-- LIVE WALL -->
     <div class="live-wall" id="liveWall">
@@ -3474,7 +3466,6 @@
         <a href="#secSquadre" class="sec-pill">🏐 Elenco Squadre</a>
         <a href="#secTabellone" class="sec-pill">🏆 Tabellone Live</a>
         <a href="#secClassifica" class="sec-pill">📊 Classifica Live</a>
-        <a href="#secMappa" class="sec-pill">📍 Mappa</a>
         <a href="#secProgramma" class="sec-pill">FANTASPLASH</a>
     </nav>
 
@@ -3623,25 +3614,7 @@
 
 
 
-    <div class="sec-wrap" id="secMappa" style="margin-bottom:28px;">
-        <div class="sec-card">
-            <div class="sec-title">📍 Dove Siamo</div>
-            <div class="sec-sub">Via della Botte, 7 – Fellegara (RE) · Campi da Beach Volley</div>
-            <div class="map-iframe-wrap">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.0!2d10.6!3d44.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sVia+della+Botte+7+Fellegara!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
-                    allowfullscreen loading="lazy" title="Mappa campi da gioco Fanta Splash Volley"></iframe>
-            </div>
-            <a href="https://www.google.com/maps/search/Via+della+Botte+7+Fellegara" target="_blank" rel="noopener"
-                class="dl-btn" aria-label="Apri posizione in Google Maps">
-                🗺️ Apri in Google Maps
-            </a>
-            <!-- WEATHER -->
-            <div class="weather-widget" id="weatherWidget">
-                <div class="ww-loading">🌤️ Caricamento meteo Fellegara…</div>
-            </div>
-        </div>
-    </div> <!-- ══ MODAL: AGGIUNGI SQUADRA ══ -->
+ <!-- ══ MODAL: AGGIUNGI SQUADRA ══ -->
     <div class="overlay" id="ovAdd" onclick="ocl(event,'ovAdd')">
         <div class="modal">
             <h2>🏐 Nuova Squadra</h2>
@@ -4663,9 +4636,7 @@
         function doAddMatch() { }
         function showBracket() { }
         /* ── keep renderGironi as alias ── */
-        function renderGironi() { renderCampi(); });
-            }
-        }
+        function renderGironi() { renderCampi(); }
 
         /* ══════════════════════════════════
            REGOLAMENTO (generated PDF-like)
