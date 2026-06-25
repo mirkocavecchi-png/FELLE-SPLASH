@@ -3911,11 +3911,14 @@
         <div class="modal" style="max-width:320px;text-align:center;">
             <div style="font-size:2.5rem;margin-bottom:10px;">🗑️</div>
             <h2 style="font-size:1.2rem;">Eliminare squadra?</h2>
-            <p style="opacity:.7;margin:10px 0 16px;font-size:.87rem;line-height:1.55;">Vuoi eliminare <strong id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">Foto e video verranno persi.</span></p>
+            <p style="opacity:.7;margin:10px 0 16px;font-size:.87rem;line-height:1.55;">Vuoi eliminare <strong
+                    id="delTName"></strong>?<br><span style="opacity:.6;font-size:.76rem;">Foto e video verranno
+                    persi.</span></p>
             <input type="hidden" id="delTId">
             <div class="modal-btns">
                 <button class="btn-cancel" onclick="cm('ovDelTeam')">Annulla</button>
-                <button class="btn-del"    onclick="doDelTeam()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️ Elimina</button>
+                <button class="btn-del" onclick="doDelTeam()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️
+                    Elimina</button>
             </div>
         </div>
     </div>
@@ -3930,7 +3933,8 @@
             <input type="hidden" id="delMTid">
             <div class="modal-btns">
                 <button class="btn-cancel" onclick="cm('ovDelMedia')">Annulla</button>
-                <button class="btn-del"    onclick="doDelMedia()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️ Rimuovi</button>
+                <button class="btn-del" onclick="doDelMedia()" style="flex:1.4;padding:12px;font-size:.87rem;">🗑️
+                    Rimuovi</button>
             </div>
         </div>
     </div>
@@ -4019,13 +4023,13 @@
                e sostituisci questi valori con i tuoi
         ══════════════════════════════════ */
         const FB_CONFIG = {
-            apiKey: "AIzaSy_SOSTITUISCI_CON_TUA_API_KEY",
-            authDomain: "TUOPROGETTO.firebaseapp.com",
-            databaseURL: "https://TUOPROGETTO-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "TUOPROGETTO",
-            storageBucket: "TUOPROGETTO.appspot.com",
-            messagingSenderId: "000000000000",
-            appId: "1:000000000000:web:0000000000000000000000"
+            apiKey: "AIzaSyDWHLfHt5RjRxl1NLj9uUq7YrHrToicawA",
+            authDomain: "felle-splash.firebaseapp.com",
+            databaseURL: "https://felle-splash-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "felle-splash",
+            storageBucket: "felle-splash.firebasestorage.app",
+            messagingSenderId: "838286351950",
+            appId: "1:838286351950:web:SOSTITUISCI_CON_WEB_APP_ID"  // ← sostituisci con appId web reale
         };
 
         let _db = null;  // Firebase database reference (null = offline mode)
