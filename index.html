@@ -4401,7 +4401,7 @@
         function loadRanking() {
             _ranking = JSON.parse(localStorage.getItem(K_RANKING) || '[]');
         }
-        function saveRanking() { localStorage.setItem(K_RANKING, JSON.stringify(_ranking)); }
+        // Note: saveRanking() is defined in the persistence section above and handles both Firebase and localStorage sync.
 
         function renderLeaderboard() {
             const g = document.getElementById('lbGenerale');
@@ -4680,6 +4680,17 @@
         ══════════════════════════════════ */
         function startCountdown() {
             const wrap = document.getElementById('countdownWrap');
+            const cdG = document.getElementById('cdG');
+            const cdH = document.getElementById('cdH');
+            const cdM = document.getElementById('cdM');
+            const cdS = document.getElementById('cdS');
+            
+            // If the countdown elements are not in the DOM, do not run the timer
+            if (!cdG && !cdH && !cdM && !cdS) {
+                if (wrap) wrap.style.display = 'none';
+                return;
+            }
+            
             function tick() {
                 const now = new Date();
                 // Check if today is tournament day or later (18 July 2026)
@@ -4694,10 +4705,10 @@
                 const m = Math.floor((diff % 3600000) / 60000);
                 const s = Math.floor((diff % 60000) / 1000);
                 const z = n => String(n).padStart(2, '0');
-                document.getElementById('cdG').textContent = z(d);
-                document.getElementById('cdH').textContent = z(h);
-                document.getElementById('cdM').textContent = z(m);
-                document.getElementById('cdS').textContent = z(s);
+                if (cdG) cdG.textContent = z(d);
+                if (cdH) cdH.textContent = z(h);
+                if (cdM) cdM.textContent = z(m);
+                if (cdS) cdS.textContent = z(s);
             }
             tick(); setInterval(tick, 1000);
         }
