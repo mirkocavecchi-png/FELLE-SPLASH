@@ -236,6 +236,16 @@
             }
         }
 
+        @keyframes zoomPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+
+        .zoom-pulse {
+            display: inline-block;
+            animation: zoomPulse 3s ease-in-out infinite;
+        }
+
         .water-title {
             display: inline-flex;
             flex-direction: column;
@@ -347,10 +357,11 @@
         .section-hdr {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             flex-wrap: wrap;
             gap: 12px;
             margin-bottom: 22px;
+            text-align: center;
         }
 
         .section-title {
@@ -664,15 +675,7 @@
    TEAMS GRID
 ═══════════════════════════════════════ */
         .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        @media(max-width:640px) {
-            .teams-grid {
-                grid-template-columns: 1fr;
-            }
+            width: 100%;
         }
 
         /* ═══════════════════════════════════════
@@ -680,20 +683,32 @@
 ═══════════════════════════════════════ */
         .teams-table {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
             width: 100%;
         }
 
-        @media(max-width: 560px) {
+        @media(max-width: 1024px) {
             .teams-table {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
-        @media(min-width: 561px) and (max-width: 860px) {
+        @media(max-width: 768px) {
+            .teams-table {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width: 576px) {
             .teams-table {
                 grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 380px) {
+            .teams-table {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -701,12 +716,12 @@
             background: var(--glass);
             backdrop-filter: blur(16px) saturate(160%);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 11px 14px;
+            border-radius: 8px;
+            padding: 6px 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            min-height: 58px;
+            gap: 8px;
+            min-height: 42px;
             position: relative;
             transition: background .2s, border-color .2s, transform .2s;
             animation: cIn .3s cubic-bezier(.34, 1.2, .64, 1) both;
@@ -737,18 +752,18 @@
         }
 
         .tt-logo {
-            width: 34px;
-            height: 34px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, .18);
+            border: 1.5px solid rgba(255, 255, 255, .18);
             background: rgba(255, 255, 255, .1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             flex-shrink: 0;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
         }
 
         .tt-logo img {
@@ -3611,20 +3626,21 @@
 
     <!-- SECTION NAV -->
     <nav class="sec-nav">
-        <a href="#secSquadre" class="sec-pill">🏐 Elenco Squadre</a>
+        <a href="#secClassifica" class="sec-pill">Classifica Live</a>
         <a href="#secTabellone" class="sec-pill">🏆 Tabellone Live</a>
-        <a href="#secClassifica" class="sec-pill">📊 Classifica Live</a>
         <a href="#secProgramma" class="sec-pill">FANTASPLASH</a>
+        <a href="#secSquadre" class="sec-pill">🏐 Elenco Squadre</a>
     </nav>
 
-    <!-- MAIN -->
-    <main id="secSquadre">
-        <div class="section-hdr">
-            <div class="section-title">🏐 Elenco Squadre</div>
-
+    <!-- LEADERBOARD (CLASSIFICA LIVE) -->
+    <div class="sec-wrap" id="secClassifica" style="margin-top:72px;margin-bottom:36px;">
+        <div class="sec-card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+            <div class="sec-title"><span class="zoom-pulse">Classifica Live</span></div>
+            <div id="lbGenerale">
+                <div class="lb-empty">Classifica non ancora disponibile…</div>
+            </div>
         </div>
-        <div class="teams-grid" id="tGrid"></div>
-    </main>
+    </div>
 
     <!-- WAVE 2 -->
     <div class="waves" style="margin-bottom:0;">
@@ -3656,17 +3672,6 @@
                         <div style="opacity:.38;font-size:.85rem;padding:8px 0;">Nessuna partita.</div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- LEADERBOARD -->
-    <div class="sec-wrap" id="secClassifica" style="padding-bottom:0;">
-        <div class="lb-sec">
-            <div class="lb-title">📊 Classifica Live</div>
-            <div class="lb-sub" id="lbSub">Punti calcolati in tempo reale dai risultati di Campo A e Campo B</div>
-            <div id="lbGenerale">
-                <div class="lb-empty">Classifica non ancora disponibile…</div>
             </div>
         </div>
     </div>
@@ -3753,6 +3758,26 @@
         </div>
     </div>
 
+    <!-- WAVE 4 -->
+    <div class="waves" style="margin-top:40px;">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,20 C300,55 600,0 900,35 C1100,58 1280,10 1440,28 L1440,60 L0,60 Z"
+                fill="rgba(255,209,102,0.09)" />
+        </svg>
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+            <path d="M0,48 C200,12 500,52 800,22 C1050,0 1250,52 1440,42 L1440,60 L0,60 Z"
+                fill="rgba(0,119,182,0.10)" />
+        </svg>
+    </div>
+
+    <!-- MAIN (ELENCO SQUADRE) -->
+    <main id="secSquadre" style="margin-bottom:36px;">
+        <div class="section-hdr">
+            <div class="section-title">🏐 ELENCO SQUADRE</div>
+        </div>
+        <div class="teams-grid" id="tGrid"></div>
+    </main>
+
     <!-- MODAL: ADMIN PANEL -->
     <div class="overlay" id="ovAdmin" onclick="ocl(event,'ovAdmin')">
         <div class="modal" id="adminModal" style="max-width:520px;transition:max-width .3s ease;">
@@ -3785,68 +3810,52 @@
                             onclick="openAdd()">➕ Aggiungi Nuova Squadra</button>
                         <div id="adminTeamList" style="margin-top:10px;"></div>
                     </div>
-                    <!-- CAMPO A -->
+                    <!-- AGGIUNGI PARTITE -->
                     <div
                         style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Campo A –
-                            Partite</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Aggiungi partite</div>
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <select id="addMatchT1"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona squadra 1…</option>
+                            </select>
+                            <select id="addMatchT2"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona squadra 2…</option>
+                            </select>
+                            <select id="addMatchCampo"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona campo…</option>
+                                <option value="A" style="background:#01183d;color:#fff;">Campo A</option>
+                                <option value="B" style="background:#01183d;color:#fff;">Campo B</option>
+                            </select>
+                            <select id="addMatchTime"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona orario…</option>
+                            </select>
+                            <select id="addMatchDay"
+                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
+                                <option value="" style="background:#01183d;color:#fff;">Seleziona giorno…</option>
+                                <option value="SAB" style="background:#01183d;color:#fff;">SAB (Sabato)</option>
+                                <option value="DOM" style="background:#01183d;color:#fff;">DOM (Domenica)</option>
+                            </select>
+                            <button class="btn-ok" style="margin-top:4px;" onclick="addMatch()">➕ Aggiungi Partita</button>
+                        </div>
+                    </div>
+                    <!-- RISULTATI E PARTITE CAMPO A -->
+                    <div
+                        style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:14px;">
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Risultati Campo A</div>
                         <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
-                        <div style="display:flex;flex-direction:column;gap:6px;">
-                            <select id="campoAT1"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
-                            </select>
-                            <select id="campoAT2"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
-                            </select>
-                            <button class="btn-ok" style="margin-top:2px;" onclick="addMatchCampo('A')">➕ Aggiungi
-                                Partita Campo A</button>
-                        </div>
                     </div>
-                    <!-- CAMPO B -->
+                    <!-- RISULTATI E PARTITE CAMPO B -->
                     <div
-                        style="background:rgba(255,183,3,.08);border:1px solid rgba(255,183,3,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Campo B –
-                            Partite</div>
+                        style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:14px;">
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Risultati Campo B</div>
                         <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
-                        <div style="display:flex;flex-direction:column;gap:6px;">
-                            <select id="campoBT1"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 1…</option>
-                            </select>
-                            <select id="campoBT2"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra 2…</option>
-                            </select>
-                            <button class="btn-ok"
-                                style="margin-top:2px;background:linear-gradient(135deg,#ffb703,#e85d04);"
-                                onclick="addMatchCampo('B')">➕ Aggiungi Partita Campo B</button>
-                        </div>
                     </div>
-                    <!-- CLASSIFICA LIVE -->
-                    <div
-                        style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.22);border-radius:14px;padding:14px;margin-bottom:18px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">📊
-                            Classifica Live</div>
-                        <div id="adminRankingList" style="margin-bottom:10px;"></div>
-                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            <select id="rnkName"
-                                style="flex:2;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:100px;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra…</option>
-                            </select>
-                            <input type="number" id="rnkPts" placeholder="Punti" min="0"
-                                style="flex:1;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 10px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;min-width:60px;">
-                            <button class="btn-ok" style="padding:9px 14px;" onclick="adminAddRanking()">➕
-                                Aggiungi</button>
-                        </div>
-                    </div>
-                    <!-- PENDING MEDIA -->
-                    <div style="font-size:.82rem;opacity:.6;margin-bottom:10px;">🎥 Video in attesa di approvazione
-                    </div>
-                    <div id="pendingList">
-                        <div style="opacity:.38;font-size:.85rem;padding:10px;">Nessun contenuto in attesa.</div>
-                    </div>
+
+
                 </div><!-- /adminPanelContent -->
 
                 <!-- ═══ PANNELLO INLINE: NUOVA SQUADRA ═══ -->
@@ -3860,18 +3869,6 @@
                         <label for="inp-name">Nome Squadra</label>
                         <input type="text" id="inp-name" placeholder="Es. Beach Warriors…" autocomplete="off"
                             onkeydown="if(event.key==='Enter'){event.preventDefault();doAdd();}">
-                    </div>
-                    <div class="form-row">
-                        <div class="pick-lbl">Scegli Stemma</div>
-                        <div class="emoji-grid" id="addEmojiGrid"></div>
-                        <div class="pick-lbl" style="margin-top:10px;">Oppure carica immagine</div>
-                        <label class="logo-zone" style="padding:10px;">
-                            <input type="file" accept="image/*" id="addLogoFile" onchange="onLogoFile('add')">
-                            <div id="addLogoPrev">
-                                <div class="up-ico">🖼️</div>
-                                <p style="font-size:.75rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>
-                            </div>
-                        </label>
                     </div>
                     <div class="modal-btns">
                         <button class="btn-cancel" onclick="closeInlineAdd()">Annulla</button>
@@ -4207,17 +4204,7 @@
            ADD TEAM
         ══════════════════════════════════ */
         function openAdd() {
-            addEmoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-            addImg = null;
             const ni = document.getElementById('inp-name'); if (ni) ni.value = '';
-            const lf = document.getElementById('addLogoFile'); if (lf) lf.value = '';
-            const lp = document.getElementById('addLogoPrev');
-            if (lp) lp.innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>';
-            mkEmojiGrid('addEmojiGrid', () => addEmoji, em => {
-                addEmoji = em; addImg = null;
-                const lp2 = document.getElementById('addLogoPrev');
-                if (lp2) lp2.innerHTML = '<div class="up-ico">🖼️</div><p style="font-size:.78rem;opacity:.5;margin-top:3px;">Tocca per caricare logo</p>';
-            });
             // Mostra il pannello inline a fianco nell'admin panel
             const panel = document.getElementById('inlineAddPanel');
             const modal = document.getElementById('adminModal');
@@ -4227,7 +4214,6 @@
                 modal.style.display = 'flex';
                 modal.style.gap = '24px';
                 modal.style.alignItems = 'flex-start';
-                // Wrappa il contenuto admin in una colonna
                 const adminContent = document.getElementById('adminPanelContent');
                 if (adminContent) adminContent.style.flex = '1';
             }
@@ -4252,16 +4238,12 @@
                 ni.style.borderColor = 'var(--coral)'; ni.focus();
                 setTimeout(() => ni.style.borderColor = '', 2000); return;
             }
-            const logo = addImg || addEmoji || EMOJIS[0];
-            const logoType = addImg ? 'img' : 'emoji';
-            const girone = '';
             const id = 't' + Date.now() + Math.random().toString(36).slice(2, 6);
-            _teams[id] = { name, logo, logoType, girone, createdAt: Date.now() };
+            _teams[id] = { name, createdAt: Date.now() };
             saveTeams();
             closeInlineAdd();
             renderTeams();
             renderLeaderboard();
-            renderGironi();
             populateAdminTeamSelects();
             toast('✅ Squadra aggiunta: ' + name + '!');
         }
@@ -4297,9 +4279,18 @@
         }
         function doDelTeam() {
             const tid = document.getElementById('delTId').value;
+            const teamName = _teams[tid] ? _teams[tid].name : null;
             delete _teams[tid];
             Object.keys(_media).forEach(mid => { if (_media[mid].teamId === tid) delete _media[mid]; });
-            saveTeams(); saveMedia(); cm('ovDelTeam'); renderTeams(); renderLeaderboard();
+            // Elimina tutte le partite che coinvolgono la squadra rimossa
+            if (teamName) {
+                Object.keys(_matches).forEach(mid => {
+                    const m = _matches[mid];
+                    if (m.t1 === teamName || m.t2 === teamName) delete _matches[mid];
+                });
+                saveMatches();
+            }
+            saveTeams(); saveMedia(); cm('ovDelTeam'); renderTeams(); renderCampi(); renderLeaderboard();
         }
 
         /* ══════════════════════════════════
@@ -4407,45 +4398,42 @@
             const g = document.getElementById('lbGenerale');
             if (!g) return;
 
-            // Auto-compute from Campo A and Campo B match results
-            const pts = {};  // { teamName: { pts, v, p } }
+            const pts = {};
 
             // Inizializza con tutte le squadre registrate
             Object.values(_teams).forEach(t => {
-                pts[t.name] = { pts: 0, v: 0, p: 0 };
+                pts[t.name] = { pts: 0 };
             });
 
+            // Somma i punteggi reali delle partite (s1 per t1, s2 per t2)
             Object.values(_matches).forEach(m => {
-                if (!pts[m.t1]) pts[m.t1] = { pts: 0, v: 0, p: 0 };
-                if (!pts[m.t2]) pts[m.t2] = { pts: 0, v: 0, p: 0 };
-                if (m.s1 !== '' && m.s2 !== '') {
-                    const s1 = parseInt(m.s1 || 0), s2 = parseInt(m.s2 || 0);
-                    if (s1 > s2) { pts[m.t1].v++; pts[m.t1].pts += 3; pts[m.t2].p++; }
-                    else if (s2 > s1) { pts[m.t2].v++; pts[m.t2].pts += 3; pts[m.t1].p++; }
-                    else { pts[m.t1].pts += 1; pts[m.t2].pts += 1; }
-                }
-            });
-
-            // Also include manual ranking entries (admin override)
-            _ranking.forEach(r => {
-                if (!pts[r.name]) pts[r.name] = { pts: 0, v: 0, p: 0 };
-                pts[r.name].pts += r.pts || 0;
+                if (!pts[m.t1]) pts[m.t1] = { pts: 0 };
+                if (!pts[m.t2]) pts[m.t2] = { pts: 0 };
+                if (m.s1 !== '') pts[m.t1].pts += parseInt(m.s1 || 0);
+                if (m.s2 !== '') pts[m.t2].pts += parseInt(m.s2 || 0);
             });
 
             const sorted = Object.entries(pts).sort((a, b) => b[1].pts - a[1].pts);
 
             if (!sorted.length) {
-                g.innerHTML = '<div class="lb-empty">📊 Nessuna partita con risultato ancora.</div>';
+                g.innerHTML = '<div class="lb-empty">Nessuna partita con risultato ancora.</div>';
                 return;
             }
-            const medals = ['🥇', '🥈', '🥉'];
-            g.innerHTML = `<div class="lb-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">${sorted.map(([name, s], i) => `<div class="lb-card">
-          <span class="lb-medal">${medals[i] || '🏐'}</span>
-          <div class="lb-type">${i + 1}° posto</div>
-          <div class="lb-team">${esc(name)}</div>
-          <div class="lb-score">${s.pts} pt</div>
-          <div class="lb-votes" style="font-size:.7rem;opacity:.6;">${s.v}V · ${s.p}P</div>
-        </div>`).join('')}</div>`;
+
+            g.innerHTML = `
+    <div style="margin-top: 10px; display: flex; justify-content: center;">
+        <table style="width: 100%; max-width: 480px; border-collapse: collapse; background: rgba(255, 255, 255, 0.02); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06);">
+            <tbody>
+                ${sorted.map(([name, s], i) => `
+                    <tr style="border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.9rem;">
+                        <td style="padding: 10px 14px; font-weight: 900; color: var(--sand); width: 30px; text-align: center;">${i + 1}</td>
+                        <td style="padding: 10px 14px; font-weight: 700; text-align: left; color: #fff;">${esc(name)}</td>
+                        <td style="padding: 10px 14px; font-weight: 900; color: var(--foam); text-align: right; width: 80px; white-space: nowrap;">${s.pts} pt</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    </div>`;
         }
         function scheduleLeaderboard() { /* classifica gestita solo da admin */ }
 
@@ -4475,22 +4463,13 @@
 
                 if (!t) {
                     cell.className = 'tt-cell empty';
-                    cell.innerHTML = `<span class="tt-num">${i + 1}</span><span style="font-size:.75rem;">— libero —</span>`;
+                    cell.innerHTML = `<span class="tt-num">${i + 1}</span><span class="tt-name" style="font-size:.75rem; opacity:.5;">— libero —</span>`;
                 } else {
                     cell.className = 'tt-cell';
                     cell.id = 'c-' + t.id;
-                    const logoEl = t.logoType === 'img'
-                        ? `<img src="${t.logo}" style="width:100%;height:100%;object-fit:cover;" alt="Logo ${esc(t.name)}">`
-                        : `<span>${t.logo}</span>`;
-                    const adminBtns = adminLoggedIn ? `
-                        <div class="tt-admin-btns">
-                            <button class="tt-admin-btn" onclick="openEditLogo('${t.id}')" title="Modifica stemma">✏️</button>
-                        </div>` : '';
                     cell.innerHTML = `
                         <span class="tt-num">${i + 1}</span>
-                        <div class="tt-logo">${logoEl}</div>
-                        <div class="tt-name">${esc(t.name)}</div>
-                        ${adminBtns}`;
+                        <div class="tt-name">${esc(t.name)}</div>`;
                 }
                 table.appendChild(cell);
             }
@@ -4818,15 +4797,29 @@
         /* ══════════════════════════════════
            TABELLONE – CAMPO A / CAMPO B
         ══════════════════════════════════ */
+        function getMatchSortValue(m) {
+            const dayVal = m.giorno === 'DOM' ? 1 : 0;
+            const timeVal = m.orario || '00:00';
+            return `${dayVal}_${timeVal}`;
+        }
         function renderCampi() {
             ['A', 'B'].forEach(campo => {
                 const elPub = document.getElementById('matchesCampo' + campo);
                 const elAdm = document.getElementById('adminMatchesCampo' + campo);
                 const matchArr = Object.entries(_matches)
                     .filter(([, m]) => m.girone === campo)
-                    .sort((a, b) => a[1].ts - b[1].ts);
+                    .sort((a, b) => {
+                        const valA = getMatchSortValue(a[1]);
+                        const valB = getMatchSortValue(b[1]);
+                        if (valA < valB) return -1;
+                        if (valA > valB) return 1;
+                        return (a[1].ts || 0) - (b[1].ts || 0);
+                    });
                 const pubHtml = matchArr.map(([mid, m]) => `
           <div class="match-row">
+            <span style="font-size: 0.72rem; font-weight: 700; color: var(--sand); background: rgba(255,255,255,0.08); padding: 3px 6px; border-radius: 6px; white-space: nowrap; margin-right: 4px;">
+              ${m.giorno || 'SAB'} ${m.orario || '00:00'}
+            </span>
             <div class="match-team">${esc(m.t1)}</div>
             <div class="match-score">
               <span class="score-val">${m.s1 !== '' ? m.s1 : '–'}</span>
@@ -4838,6 +4831,9 @@
                 if (elPub) elPub.innerHTML = pubHtml;
                 const admHtml = matchArr.map(([mid, m]) => `
           <div class="match-row" style="margin-bottom:6px;">
+            <span style="font-size: 0.7rem; font-weight: 700; color: var(--sand); background: rgba(255,255,255,0.08); padding: 3px 6px; border-radius: 6px; white-space: nowrap; margin-right: 4px;">
+              ${m.giorno || 'SAB'} ${m.orario || '00:00'}
+            </span>
             <div class="match-team" style="font-size:.8rem;">${esc(m.t1)}</div>
             <div class="match-score">
               <input class="score-inp" id="ms1-${mid}" value="${m.s1 || ''}" placeholder="0" maxlength="2" type="number" min="0">
@@ -4868,19 +4864,33 @@
         function delMatch(mid) {
             delete _matches[mid]; saveMatches(); renderCampi(); renderLeaderboard(); renderTeams();
         }
-        function addMatchCampo(campo) {
-            const t1 = document.getElementById('campo' + campo + 'T1').value.trim();
-            const t2 = document.getElementById('campo' + campo + 'T2').value.trim();
+        function addMatch() {
+            const t1 = document.getElementById('addMatchT1').value.trim();
+            const t2 = document.getElementById('addMatchT2').value.trim();
+            const campo = document.getElementById('addMatchCampo').value;
+            const orario = document.getElementById('addMatchTime').value;
+            const giorno = document.getElementById('addMatchDay').value;
+
             if (!t1 || !t2) { toast('⚠️ Inserisci entrambe le squadre!'); return; }
+            if (t1 === t2) { toast('⚠️ Scegli due squadre diverse!'); return; }
+            if (!campo) { toast('⚠️ Seleziona il campo!'); return; }
+            if (!orario) { toast('⚠️ Seleziona l\'orario!'); return; }
+            if (!giorno) { toast('⚠️ Seleziona il giorno!'); return; }
+
             const mid = 'mx' + Date.now();
-            _matches[mid] = { girone: campo, t1, t2, s1: '', s2: '', ts: Date.now() };
+            _matches[mid] = { girone: campo, t1, t2, s1: '', s2: '', orario, giorno, ts: Date.now() };
             saveMatches();
-            document.getElementById('campo' + campo + 'T1').value = '';
-            document.getElementById('campo' + campo + 'T2').value = '';
+
+            document.getElementById('addMatchT1').value = '';
+            document.getElementById('addMatchT2').value = '';
+            document.getElementById('addMatchCampo').value = '';
+            document.getElementById('addMatchTime').value = '';
+            document.getElementById('addMatchDay').value = '';
+
             renderCampi();
             renderLeaderboard();
             renderTeams();
-            toast('✅ Partita Campo ' + campo + ' aggiunta!');
+            toast('✅ Partita aggiunta con successo!');
         }
         /* legacy stubs to avoid JS errors */
         function renderPlayoff() { }
@@ -5099,8 +5109,27 @@
             document.getElementById('ovAdmin').classList.add('open');
             if (adminLoggedIn) { renderPending(); renderAdminRanking(); populateAdminTeamSelects(); }
         }
+        function populateTimeSelect() {
+            const select = document.getElementById('addMatchTime');
+            if (!select || select.children.length > 1) return;
+            select.innerHTML = '<option value="" style="background:#01183d;color:#fff;">Seleziona Orario…</option>';
+            for (let h = 0; h < 24; h++) {
+                for (let m = 0; m < 60; m += 15) {
+                    const hh = String(h).padStart(2, '0');
+                    const mm = String(m).padStart(2, '0');
+                    const timeStr = `${hh}:${mm}`;
+                    const opt = document.createElement('option');
+                    opt.value = timeStr;
+                    opt.textContent = timeStr;
+                    opt.style.background = '#01183d';
+                    opt.style.color = '#fff';
+                    select.appendChild(opt);
+                }
+            }
+        }
         function populateAdminTeamSelects() {
-            ['campoAT1', 'campoAT2', 'campoBT1', 'campoBT2', 'rnkName'].forEach(id => {
+            populateTimeSelect();
+            ['addMatchT1', 'addMatchT2', 'rnkName'].forEach(id => {
                 const sel = document.getElementById(id);
                 if (!sel) return;
                 const currentVal = sel.value;
