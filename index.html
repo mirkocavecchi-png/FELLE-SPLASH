@@ -5052,6 +5052,43 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
             if (!orario) { toast('⚠️ Seleziona l\'orario!'); return; }
             if (!giorno) { toast('⚠️ Seleziona il giorno!'); return; }
 
+            // CONTROLLI DI SOVRAPPOSIZIONE E RIPOSO
+            const [nH, nM] = orario.split(':').map(Number);
+            const newMin = nH * 60 + nM;
+            let conflict = false;
+            let warnMessage = '';
+
+            for (const mid in _matches) {
+                const m = _matches[mid];
+                if (m.giorno !== giorno) continue;
+
+                const [cH, cM] = m.orario.split(':').map(Number);
+                const cMin = cH * 60 + cM;
+                const timeDiff = Math.abs(newMin - cMin);
+
+                // Regola 1: Stesso campo, sovrapposizione di 15 minuti
+                if (m.girone === campo && timeDiff < 15) {
+                    conflict = true;
+                    warnMessage = `Sovrapposizione sul Campo ${campo}. C'è già una partita alle ${m.orario} (devi attendere 15 min).`;
+                    break;
+                }
+
+                // Regola 2: Una delle due squadre gioca troppo ravvicinata (meno di 15 min)
+                if (m.t1 === t1 || m.t1 === t2 || m.t2 === t1 || m.t2 === t2) {
+                    if (timeDiff < 15) {
+                        conflict = true;
+                        const tName = (m.t1 === t1 || m.t2 === t1) ? (_teams[t1] ? _teams[t1].name : 't1') : (_teams[t2] ? _teams[t2].name : 't2');
+                        warnMessage = `La squadra "${tName}" gioca già una partita alle ${m.orario}. Non rispetta il turno di riposo!`;
+                        break;
+                    }
+                }
+            }
+
+            if (conflict) {
+                alert('⚠️ IMPOSSIBILE AGGIUNGERE PARTITA:\n\n' + warnMessage);
+                return;
+            }
+
             const mid = 'mx' + Date.now();
             _matches[mid] = { girone: campo, t1, t2, s1: '', s2: '', orario, giorno, ts: Date.now() };
             saveMatches();
@@ -5430,10 +5467,11 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         }
         function populateTimeSelect() {
             const select = document.getElementById('addMatchTime');
-            if (!select || select.children.length > 1) return;
+            if (!select) return;
             select.innerHTML = '<option value="" style="background:#01183d;color:#fff;">Seleziona Orario…</option>';
-            for (let h = 0; h < 24; h++) {
-                for (let m = 0; m < 60; m += 15) {
+            for (let h = 14; h <= 22; h++) {
+                for (let m = 0; m < 60; m += 5) {
+                    if (h === 22 && m > 0) break;
                     const hh = String(h).padStart(2, '0');
                     const mm = String(m).padStart(2, '0');
                     const timeStr = `${hh}:${mm}`;
