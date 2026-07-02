@@ -5052,35 +5052,62 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
             if (!orario) { toast('⚠️ Seleziona l\'orario!'); return; }
             if (!giorno) { toast('⚠️ Seleziona il giorno!'); return; }
 
-            // CONTROLLI DI SOVRAPPOSIZIONE E RIPOSO
+            // CONTROLLI DI SOVRAPPOSIZIONE E REGOLE TORNEO
             const [nH, nM] = orario.split(':').map(Number);
             const newMin = nH * 60 + nM;
             let conflict = false;
             let warnMessage = '';
 
+            let countT1 = 0;
+            let countT2 = 0;
+
             for (const mid in _matches) {
                 const m = _matches[mid];
-                if (m.giorno !== giorno) continue;
+                
+                // 1) Conteggio partite totali per squadra
+                if (m.t1 === t1 || m.t2 === t1) countT1++;
+                if (m.t1 === t2 || m.t2 === t2) countT2++;
 
-                const [cH, cM] = m.orario.split(':').map(Number);
-                const cMin = cH * 60 + cM;
-                const timeDiff = Math.abs(newMin - cMin);
-
-                // Regola 1: Stesso campo, sovrapposizione di 15 minuti
-                if (m.girone === campo && timeDiff < 15) {
+                // 2) Controllo se si sono già sfidate (indipendentemente dal giorno)
+                if ((m.t1 === t1 && m.t2 === t2) || (m.t1 === t2 && m.t2 === t1)) {
                     conflict = true;
-                    warnMessage = `Sovrapposizione sul Campo ${campo}. C'è già una partita alle ${m.orario} (devi attendere 15 min).`;
+                    warnMessage = `Queste due squadre si sono già sfidate in precedenza! Non possono giocare contro due volte.`;
                     break;
                 }
 
-                // Regola 2: Una delle due squadre gioca troppo ravvicinata (meno di 15 min)
-                if (m.t1 === t1 || m.t1 === t2 || m.t2 === t1 || m.t2 === t2) {
-                    if (timeDiff < 15) {
+                // 3) Controlli di orario (valgono solo per lo stesso giorno)
+                if (m.giorno === giorno) {
+                    const [cH, cM] = m.orario.split(':').map(Number);
+                    const cMin = cH * 60 + cM;
+                    const timeDiff = Math.abs(newMin - cMin);
+
+                    // Sovrapposizione stesso campo (< 15 min)
+                    if (m.girone === campo && timeDiff < 15) {
                         conflict = true;
-                        const tName = (m.t1 === t1 || m.t2 === t1) ? (_teams[t1] ? _teams[t1].name : 't1') : (_teams[t2] ? _teams[t2].name : 't2');
-                        warnMessage = `La squadra "${tName}" gioca già una partita alle ${m.orario}. Non rispetta il turno di riposo!`;
+                        warnMessage = `Sovrapposizione sul Campo ${campo}. C'è già una partita alle ${m.orario} (devi attendere 15 min).`;
                         break;
                     }
+
+                    // Riposo minimo per la singola squadra (< 15 min)
+                    if (m.t1 === t1 || m.t1 === t2 || m.t2 === t1 || m.t2 === t2) {
+                        if (timeDiff < 15) {
+                            conflict = true;
+                            const conflictingTeam = (m.t1 === t1 || m.t2 === t1) ? t1 : t2;
+                            warnMessage = `La squadra "${conflictingTeam}" gioca già una partita alle ${m.orario}. Non rispetta il turno di riposo!`;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 4) Controllo limite 6 partite (se non ci sono stati altri conflitti prima)
+            if (!conflict) {
+                if (countT1 >= 6) {
+                    conflict = true;
+                    warnMessage = `La squadra "${t1}" ha già raggiunto il limite massimo di 6 partite nel torneo!`;
+                } else if (countT2 >= 6) {
+                    conflict = true;
+                    warnMessage = `La squadra "${t2}" ha già raggiunto il limite massimo di 6 partite nel torneo!`;
                 }
             }
 
