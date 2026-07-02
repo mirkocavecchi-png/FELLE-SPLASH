@@ -237,8 +237,15 @@
         }
 
         @keyframes zoomPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.04);
+            }
         }
 
         .zoom-pulse {
@@ -2674,26 +2681,6 @@
             color: var(--foam);
         }
 
-        .sec-pill-btn {
-            cursor: pointer;
-            background: rgba(255, 255, 255, .08);
-            border: 1px solid rgba(255, 255, 255, .14);
-            border-radius: 30px;
-            padding: 7px 16px;
-            font-weight: 800;
-            font-size: .78rem;
-            color: var(--white);
-            transition: all .2s;
-            white-space: nowrap;
-            font-family: inherit;
-        }
-
-        .sec-pill-btn:hover {
-            background: rgba(0, 180, 216, .25);
-            border-color: var(--sky);
-            color: var(--foam);
-        }
-
         /* ═══════════════════════════════════════
    GENERIC SECTION CARD
 ═══════════════════════════════════════ */
@@ -3406,6 +3393,15 @@
             }
         }
 
+        .nm-teams {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
         .nm-team {
             text-align: center;
             flex: 1;
@@ -3629,180 +3625,17 @@
 
     <!-- SECTION NAV -->
     <nav class="sec-nav">
-        <a href="#secClassifica" class="sec-pill">🏆 Classifica Live</a>
-        <a href="#secTabellone" class="sec-pill">📅 Calendario Partite</a>
-        <button class="sec-pill sec-pill-btn" onclick="apriRegolamento()">📋 REGOLAMENTO TORNEO</button>
-        <button class="sec-pill sec-pill-btn" onclick="apriFantasplash()">🌊 REGOLAMENTO FANTA SPLASH</button>
+        <a href="#secClassifica" class="sec-pill">Classifica Live</a>
+        <a href="#secTabellone" class="sec-pill">Calendario Partite</a>
         <a href="#secSquadre" class="sec-pill">🏐 Elenco Squadre</a>
     </nav>
 
-    <!-- MODAL REGOLAMENTO -->
-    <div id="modalRegolamento" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:9999; overflow-y:auto; backdrop-filter:blur(6px);">
-      <div style="max-width:720px; margin:60px auto 40px; background:linear-gradient(135deg,#1a2a4a,#0d1b35); border:1px solid rgba(100,180,255,0.3); border-radius:20px; padding:36px 40px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6); font-family:'Segoe UI',sans-serif; color:#e8f4ff;">
-        <button onclick="chiudiRegolamento()" style="position:absolute; top:16px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:36px; height:36px; font-size:20px; cursor:pointer; color:#fff; line-height:34px; text-align:center; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,80,80,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">✕</button>
-        <h2 style="margin:0 0 20px; font-size:1.6rem; color:#7dd3fc; text-align:center; letter-spacing:0.04em;">📋 REGOLAMENTO TORNEO</h2>
-        <div id="regolamentoContenuto" style="white-space:pre-wrap; line-height:1.75; font-size:0.97rem; max-height:65vh; overflow-y:auto; background:rgba(0,0,0,0.25); padding:20px; border-radius:12px; border:1px solid rgba(100,180,255,0.15);"><strong style="font-size:1.15rem; color:#7dd3fc; display:block; margin-bottom:12px;">REGOLAMENTO TORNEO</strong>
-
-Il torneo è amatoriale e fatto per divertirsi.
-
-Le regole sono quelle classiche della pallavolo.
-In campo 6 persone, con un minimo di due donne.
-Si può giocare anche in 5 persone, con una donna.
-
-Obbligo di giro in battuta. La battuta si esegue dal fondo del campo con i piedi in acqua.
-Il pallone che tocca il bordo gonfiabile è considerato fuori.
-In battuta è vietato murare, ma si può usare il palleggio.
-
-Le partite sono a tempo. Il tempo non viene mai fermato, se non per decisione dell'arbitro.
-Fatevi aiutare da qualcuno della squadra o dal pubblico per il recupero dei palloni!
-Le partite sono di due set e non c'è limite di punti entro il tempo massimo stabilito.
-Cambio campo allo scadere del primo set.
-
-La classifica è la somma di tutti i punti delle partite.
-
-<strong style="font-size:1.1rem; color:#7dd3fc; display:block; margin-top:8px; margin-bottom:4px;">ARBITRAGGI</strong>
-
-Ogni squadra può guadagnare punti extra con gli arbitraggi.
-Gli arbitraggi possono essere prenotati ai tabelloni segnapunti negli elenchi delle partite.
-Ogni arbitraggio vale 5pt per un massimo di 4 arbitraggi a squadra (max +20 pt)
-
-La squadra che si è prenotata e non si presenta all'arbitraggio perde 10 pt.
-
-I punti aggiuntivi si sommano alla classifica punti del torneo.</div>
-      </div>
-    </div>
-
-    <!-- MODAL REGOLAMENTO FANTA SPLASH -->
-    <div id="modalFantasplash" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:9999; overflow-y:auto; backdrop-filter:blur(6px);">
-      <div style="max-width:720px; margin:60px auto 40px; background:linear-gradient(135deg,#1a2a4a,#0d1b35); border:1px solid rgba(100,180,255,0.3); border-radius:20px; padding:36px 40px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.6); font-family:'Segoe UI',sans-serif; color:#e8f4ff;">
-        <button onclick="chiudiFantasplash()" style="position:absolute; top:16px; right:20px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:50%; width:36px; height:36px; font-size:20px; cursor:pointer; color:#fff; line-height:34px; text-align:center; transition:background 0.2s;" onmouseover="this.style.background='rgba(255,80,80,0.4)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">✕</button>
-        <h2 style="margin:0 0 20px; font-size:1.6rem; color:#7dd3fc; text-align:center; letter-spacing:0.04em;">🌊 REGOLAMENTO FANTA SPLASH</h2>
-        <div style="white-space:pre-wrap; line-height:1.75; font-size:0.97rem; max-height:65vh; overflow-y:auto; background:rgba(0,0,0,0.25); padding:20px; border-radius:12px; border:1px solid rgba(100,180,255,0.15);"><strong style="font-size:1.15rem; color:#7dd3fc; display:block; margin-bottom:12px;">REGOLAMENTO FANTASPLASH</strong>
-
-Il Fanta Splash non è obbligatorio, ma è altamente consigliato se volete fare punti aggiuntivi.
-I punti guadagnati con il Fanta Splash possono anche ribaltare la classifica punti delle partite.
-
-La classifica finale del Fanta Splash è indipendente da quella del torneo e fa guadagnare 5 pt ad ogni posizione in classifica.
-5 pt all'ultimo classificato e via via +5pt a salire in classifica fino al primo. In caso di pari merito si guadagnano gli stessi punti.
-
-<strong style="color:#fbbf24;">SE VUOI FARE LA DIFFERENZA LEGGI FINO ALLA FINE!</strong>
-L'impegno è la vostra migliore strategia!
-
-Ci sono 6 performance diverse che si possono fare.
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">1. PACCO PRIME</strong> (80 punti per ogni giocatore — min 80 pt / max 480 pt)
-Ciascun giocatore, minimo 1, massimo 6, deve giocare con il busto inserito dentro ad uno scatolone.
-Lo scatolone deve essere rettangolare o quadrato con due buchi ai lati per le braccia e un buco superiore per la testa. Il lato inferiore è aperto per le gambe. Lo scatolone può essere allestito come più vi piace.
-<strong style="color:#fca5a5;">Attenzione!</strong> Durante la performance lo scatolone deve rimanere intatto e non disfarsi o rompersi!
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">2. SAREMO IO E TE</strong> (30 punti per ogni coppia — min 30 pt / max 120 pt)
-Ciascuna coppia, minimo 1, massimo 3, gioca legata fra loro con corde con polsini. Le corde hanno lunghezze variabili.
-La scelta della lunghezza determina il punteggio: 30 pt corda più lunga, 35 pt corda media, 40 pt corda più corta.
-<strong style="color:#fca5a5;">Attenzione!</strong> Nel video dovete mostrare con molta attenzione la lunghezza della corda che state utilizzando! Se dal video non si vede bene, saranno applicati 30 pt.
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">3. OH CHE CALOR</strong> (20 punti per ogni giocatore — min 20 pt / max 120 pt)
-Ciascun giocatore, minimo 1, massimo 6, deve giocare indossando guanti da forno in stoffa, uno per ogni mano. I guanti li dovete portare voi e NON sono forniti dallo staff.
-I guanti non possono essere legati alle braccia con nessun elastico o altra chiusura che permetta di tenerli fermi all'avambraccio.
-<strong style="color:#fca5a5;">Attenzione!</strong> Durante la performance nessun guanto deve scivolare via, altrimenti i punti non valgono!
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">4. BI-DI-DI-DO-DI-DI-BU</strong> (60 punti per ogni giocatore — min 60 pt / max 360 pt)
-Ciascun giocatore, minimo 1, massimo 6, deve giocare indossando contemporaneamente: una gonna lunga fino a metà polpaccio, ali da fata, e avere sempre in mano una bacchetta magica.
-Tutto il necessario lo portate voi da casa, lo Staff non fornisce niente! Più sarete fatati meglio è.
-La bacchetta non può essere legata al braccio o alla mano, ma deve essere usata durante le azioni di gioco per fare magie, come ad esempio "bi-di-di-bo-di-di-bu".
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">5. SON DIEGO</strong> (40 punti per ogni giocatore — min 40 pt / max 240 pt)
-Ciascun giocatore, minimo 1, massimo 6, deve giocare indossando contemporaneamente: una fascia nera con fori per gli occhi (che copra dalla fronte al naso) e un mantello legato al collo che copra la maggior parte del corpo.
-Il mantello deve essere lungo almeno fino alle caviglie e deve quindi bagnarsi a contatto con l'acqua.
-<strong style="color:#fca5a5;">Attenzione!</strong> Durante la performance sia la fascia che il mantello non devono mai scivolare o essere tolti, altrimenti i punti non valgono!
-
-<strong style="font-size:1.05rem; color:#7dd3fc;">6. MA CHE FREDDO FA</strong> (10 punti per ogni giocatore — min 10 pt / max 60 pt)
-Ciascun giocatore, minimo 1, massimo 6, deve giocare indossando un maglione pesante di lana o cotone a maniche lunghe.
-Non sono ammesse felpe o indumenti in materiale sintetico (assorbono troppo poco l'acqua!).
-Durante la performance le maniche del maglione non possono essere tirate sopra i gomiti o sugli avambracci, altrimenti i punti non valgono!
-
-<strong style="font-size:1.1rem; color:#7dd3fc; display:block; margin-top:8px; margin-bottom:4px;">COME SI OTTENGONO I PUNTI?</strong>
-<strong style="color:#fbbf24;">!!! LEGGI CON ATTENZIONE !!!</strong>
-
-La squadra deve filmare un video della durata di 1:00 minuto (i video più brevi saranno scartati, i video più lunghi saranno tagliati).
-Il video può mostrare una o più performance insieme, purché ogni performance duri per l'intero minuto.
-
-<strong style="color:#7dd3fc;">Esempi pratici:</strong>
-A) 2 GIOCATORI PERFORMANCE 1 = 160 PT +
-1 COPPIA PERFORMANCE 2 (CORDA LUNGA) = 60 PT +
-1 GIOCATORE PERFORMANCE 3 = 20 PT +
-1 GIOCATORE PERFORMANCE 4 = 60 PT
-→ TOTALE 270 PUNTI.
-
-B) 6 GIOCATORI PERFORMANCE 1
-→ TOTALE 480 PUNTI.
-
-C) 3 GIOCATORI PERFORMANCE 5 (120 PT) +
-3 GIOCATORI PERFORMANCE 6 (30 PT)
-→ TOTALE 150 PUNTI.
-
-D) 1 GIOCATORE PERFORMANCE 4
-→ 60 PUNTI.
-
-<strong style="font-size:1.1rem; color:#7dd3fc; display:block; margin-top:8px; margin-bottom:4px;">IL VIDEO</strong>
-Il video deve avere una durata di 1:00 minuto e deve mostrare la continuità della performance. Non si possono inserire "spezzoni" o assemblaggi di più pezzi di durata singola inferiore a 1:00 minuto.
-Potete filmare un periodo più lungo di partita e poi tagliarlo nella parte che più vi piace.
-
-<strong style="color:#fbbf24;">IL VIDEO DEVE ESSERE INVIATO AL NUMERO WHATSAPP 3497225376</strong> (lo stesso numero usato per le iscrizioni).
-Inserite SEMPRE nel messaggio il nome della squadra.
-
-Tutti i video ricevuti saranno controllati e, se corretti, verranno pubblicati sulla pagina Instagram @nuovafellegara con #fantasplash #NOMESQUADRA.
-Nel momento in cui il video viene pubblicato, i punti sono assicurati.
-
-Dopo la pubblicazione, per guadagnare altri punti, tocca solo a voi! Più il video guadagna like entro le 18:00 della domenica più punti potete aggiungere (1 punto ogni 10 like).
-
-La classifica finale del Fanta Splash sarà data dalla somma dei punti delle performance e dai like ai video della squadra.</div>
-      </div>
-    </div>
-
-    <script>
-      function apriRegolamento() {
-        document.getElementById('modalRegolamento').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-      function chiudiRegolamento() {
-        document.getElementById('modalRegolamento').style.display = 'none';
-        document.body.style.overflow = '';
-      }
-      function apriFantasplash() {
-        document.getElementById('modalFantasplash').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-      }
-      function chiudiFantasplash() {
-        document.getElementById('modalFantasplash').style.display = 'none';
-        document.body.style.overflow = '';
-      }
-      document.getElementById('modalRegolamento').addEventListener('click', function(e) {
-        if (e.target === this) chiudiRegolamento();
-      });
-      document.getElementById('modalFantasplash').addEventListener('click', function(e) {
-        if (e.target === this) chiudiFantasplash();
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') { chiudiRegolamento(); chiudiFantasplash(); }
-      });
-    </script>
-
     <!-- LEADERBOARD (CLASSIFICA LIVE) -->
     <div class="sec-wrap" id="secClassifica" style="margin-top:72px;margin-bottom:36px;">
-        <div style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center;">
-            <!-- CLASSIFICA LIVE TORNEO -->
-            <div class="sec-card" style="flex:1; min-width:280px; max-width:500px; text-align:center;">
-                <div class="sec-title"><span class="zoom-pulse">🏆 Classifica Live</span></div>
-                <div id="lbGenerale">
-                    <div class="lb-empty">Classifica non ancora disponibile…</div>
-                </div>
-            </div>
-            <!-- CLASSIFICA LIVE FANTA SPLASH -->
-            <div class="sec-card" style="flex:1; min-width:280px; max-width:500px; text-align:center;">
-                <div class="sec-title"><span class="zoom-pulse">🌊 Classifica Live Fanta Splash</span></div>
-                <div id="lbFanta">
-                    <div class="lb-empty">Classifica non ancora disponibile…</div>
-                </div>
+        <div class="sec-card" style="max-width: 500px; margin: 0 auto; text-align: center;">
+            <div class="sec-title"><span class="zoom-pulse">Classifica Live</span></div>
+            <div id="lbGenerale">
+                <div class="lb-empty">Classifica non ancora disponibile…</div>
             </div>
         </div>
     </div>
@@ -3897,7 +3730,8 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
                     <!-- AGGIUNGI PARTITE -->
                     <div
                         style="background:rgba(0,180,216,.08);border:1px solid rgba(0,180,216,.2);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Aggiungi partite</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Aggiungi
+                            partite</div>
                         <div style="display:flex;flex-direction:column;gap:6px;">
                             <select id="addMatchT1"
                                 style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
@@ -3923,68 +3757,23 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
                                 <option value="SAB" style="background:#01183d;color:#fff;">SAB (Sabato)</option>
                                 <option value="DOM" style="background:#01183d;color:#fff;">DOM (Domenica)</option>
                             </select>
-                            <button class="btn-ok" style="margin-top:4px;" onclick="addMatch()">➕ Aggiungi Partita</button>
+                            <button class="btn-ok" style="margin-top:4px;" onclick="addMatch()">➕ Aggiungi
+                                Partita</button>
                         </div>
                     </div>
                     <!-- RISULTATI E PARTITE CAMPO A -->
                     <div
                         style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Risultati Campo A</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--foam);margin-bottom:12px;">🏐 Risultati
+                            Campo A</div>
                         <div id="adminMatchesCampoA" style="margin-bottom:10px;"></div>
                     </div>
                     <!-- RISULTATI E PARTITE CAMPO B -->
                     <div
                         style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Risultati Campo B</div>
+                        <div style="font-weight:900;font-size:.88rem;color:var(--sand);margin-bottom:12px;">🏐 Risultati
+                            Campo B</div>
                         <div id="adminMatchesCampoB" style="margin-bottom:10px;"></div>
-                    </div>
-
-                    <!-- FANTA SPLASH -->
-                    <div style="background:rgba(100,180,255,.07);border:1px solid rgba(100,180,255,.22);border-radius:14px;padding:14px;margin-bottom:14px;">
-                        <div style="font-weight:900;font-size:.88rem;color:#7dd3fc;margin-bottom:12px;">🌊 Fanta Splash</div>
-                        <div style="display:flex;flex-direction:column;gap:6px;">
-                            <!-- Squadra -->
-                            <select id="fsTeam" onchange="fsUpdatePreview()"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Squadra…</option>
-                            </select>
-                            <!-- Performance -->
-                            <select id="fsPerf" onchange="fsOnPerfChange()"
-                                style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                <option value="" style="background:#01183d;color:#fff;">Seleziona Performance…</option>
-                                <option value="1" style="background:#01183d;color:#fff;">1. PACCO PRIME (80 pt/giocatore)</option>
-                                <option value="2" style="background:#01183d;color:#fff;">2. SAREMO IO E TE (30-40 pt/coppia)</option>
-                                <option value="3" style="background:#01183d;color:#fff;">3. OH CHE CALOR (20 pt/giocatore)</option>
-                                <option value="4" style="background:#01183d;color:#fff;">4. BI-DI-DI-BO-DI-DI-BU (60 pt/giocatore)</option>
-                                <option value="5" style="background:#01183d;color:#fff;">5. SON DIEGO (40 pt/giocatore)</option>
-                                <option value="6" style="background:#01183d;color:#fff;">6. MA CHE FREDDO FA (10 pt/giocatore)</option>
-                            </select>
-                            <!-- Numero giocatori (perf 1,3,4,5,6) -->
-                            <div id="fsCountWrap" style="display:none;">
-                                <label style="font-size:.78rem;opacity:.6;margin-bottom:3px;display:block;">N° giocatori (1-6)</label>
-                                <input type="number" id="fsCount" min="1" max="6" value="1" oninput="fsUpdatePreview()"
-                                    style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;">
-                            </div>
-                            <!-- Coppie + lunghezza corda (perf 2) -->
-                            <div id="fsCoupleWrap" style="display:none;">
-                                <label style="font-size:.78rem;opacity:.6;margin-bottom:3px;display:block;">N° coppie (1-3)</label>
-                                <input type="number" id="fsCouples" min="1" max="3" value="1" oninput="fsUpdatePreview()"
-                                    style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;margin-bottom:6px;">
-                                <label style="font-size:.78rem;opacity:.6;margin-bottom:3px;display:block;">Lunghezza corda</label>
-                                <select id="fsRope" onchange="fsUpdatePreview()"
-                                    style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 12px;color:#fff;font-family:'Outfit',sans-serif;font-size:.88rem;outline:none;width:100%;cursor:pointer;">
-                                    <option value="long" style="background:#01183d;color:#fff;">Lunga (30 pt/coppia)</option>
-                                    <option value="mid" style="background:#01183d;color:#fff;">Media (35 pt/coppia)</option>
-                                    <option value="short" style="background:#01183d;color:#fff;">Corta (40 pt/coppia)</option>
-                                </select>
-                            </div>
-                            <!-- Preview punti -->
-                            <div id="fsPreview" style="display:none;background:rgba(125,211,252,.12);border:1px solid rgba(125,211,252,.3);border-radius:10px;padding:8px 12px;font-size:.88rem;font-weight:900;color:#7dd3fc;text-align:center;"></div>
-                            <!-- Aggiungi -->
-                            <button class="btn-ok" style="margin-top:4px;background:linear-gradient(135deg,#0ea5e9,#2563eb);" onclick="adminAddFanta()">➕ Aggiungi Performance</button>
-                        </div>
-                        <!-- Lista voci inserite -->
-                        <div id="adminFantaList" style="margin-top:12px;"></div>
                     </div>
 
 
@@ -4113,7 +3902,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         const K_PENDING = 'fsv6_pending';      // media awaiting admin approval
         const K_NEXTMATCH = 'fsv6_nextmatch';   // prossimo match data
         const K_FAVS = 'fsv6_favs';        // favourite team IDs
-        const K_FANTA = 'fsv6_fantaData';   // fanta splash entries
         const TOURNAMENT_DATE = new Date('2026-07-18T09:00:00');
 
         /* ══════════════════════════════════
@@ -4141,7 +3929,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         let lwIdx = 0, lwTimer = null;
         let _nextMatch = {};
         let _favs = [];
-        let _fantaData = {};  // { [teamName]: [{perf, count, ropeLen, pts, label}] }
         let nmTimer = null;
         let searchQ = '';
 
@@ -4206,11 +3993,26 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
             _pending = JSON.parse(localStorage.getItem(K_PENDING) || '{}');
             _nextMatch = JSON.parse(localStorage.getItem(K_NEXTMATCH) || '{}');
             _favs = JSON.parse(localStorage.getItem(K_FAVS) || '[]');
-            _fantaData = JSON.parse(localStorage.getItem(K_FANTA) || '{}');
         }
 
         function fbListen() {
             if (!_db) return;
+            
+            // Monitor connection state
+            _db.ref('.info/connected').on('value', snap => {
+                const connected = snap.val() === true;
+                const dot = document.getElementById('syncDot');
+                if (dot) {
+                    if (connected) {
+                        dot.classList.add('ok');
+                        dot.title = "Connesso in tempo reale";
+                    } else {
+                        dot.classList.remove('ok');
+                        dot.title = "Disconnesso (Offline)";
+                    }
+                }
+            });
+
             const ref = _db.ref('fsv6');
             ref.child('teams').on('value', snap => {
                 const v = snap.val();
@@ -4255,13 +4057,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
                 localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch));
                 startNextMatchCountdown();
             });
-            ref.child('fantaData').on('value', snap => {
-                const v = snap.val();
-                _fantaData = v !== null ? v : {};
-                localStorage.setItem(K_FANTA, JSON.stringify(_fantaData));
-                renderFantaLeaderboard();
-                if (adminLoggedIn) renderAdminFanta();
-            });
         }
 
         function saveTeams() { if (_db) _db.ref('fsv6/teams').set(_teams); localStorage.setItem(K_TEAMS, JSON.stringify(_teams)); }
@@ -4275,7 +4070,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         function saveNextMatch() { if (_db) _db.ref('fsv6/nextMatch').set(_nextMatch); localStorage.setItem(K_NEXTMATCH, JSON.stringify(_nextMatch)); }
         function saveFavs() { localStorage.setItem(K_FAVS, JSON.stringify(_favs)); }
         function saveRanking() { if (_db) _db.ref('fsv6/ranking').set(_ranking); localStorage.setItem('fsv6_ranking', JSON.stringify(_ranking)); }
-        function saveFanta() { if (_db) _db.ref('fsv6/fantaData').set(_fantaData); localStorage.setItem(K_FANTA, JSON.stringify(_fantaData)); }
 
 
 
@@ -4806,13 +4600,13 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
             const cdH = document.getElementById('cdH');
             const cdM = document.getElementById('cdM');
             const cdS = document.getElementById('cdS');
-            
+
             // If the countdown elements are not in the DOM, do not run the timer
             if (!cdG && !cdH && !cdM && !cdS) {
                 if (wrap) wrap.style.display = 'none';
                 return;
             }
-            
+
             function tick() {
                 const now = new Date();
                 // Check if today is tournament day or later (18 July 2026)
@@ -5184,161 +4978,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         }
 
         /* ══════════════════════════════════
-           FANTA SPLASH – LOGICA
-        ══════════════════════════════════ */
-        const FANTA_PERF_NAMES = ['', 'PACCO PRIME', 'SAREMO IO E TE', 'OH CHE CALOR', 'BI-DI-DI-BO-DI-DI-BU', 'SON DIEGO', 'MA CHE FREDDO FA'];
-
-        function calcFantaPts(perf, count, ropeLen) {
-            perf = parseInt(perf);
-            count = Math.max(1, parseInt(count) || 1);
-            const perUnit = { 1: 80, 3: 20, 4: 60, 5: 40, 6: 10 };
-            if (perf === 1 || perf === 3 || perf === 4 || perf === 5 || perf === 6) {
-                count = Math.min(6, count);
-                return perUnit[perf] * count;
-            }
-            if (perf === 2) {
-                count = Math.min(3, count);
-                const ropeMap = { long: 30, mid: 35, short: 40 };
-                return (ropeMap[ropeLen] || 30) * count;
-            }
-            return 0;
-        }
-
-        function fsOnPerfChange() {
-            const perf = document.getElementById('fsPerf').value;
-            const countWrap = document.getElementById('fsCountWrap');
-            const coupleWrap = document.getElementById('fsCoupleWrap');
-            if (perf === '2') {
-                countWrap.style.display = 'none';
-                coupleWrap.style.display = 'block';
-            } else if (perf) {
-                countWrap.style.display = 'block';
-                coupleWrap.style.display = 'none';
-            } else {
-                countWrap.style.display = 'none';
-                coupleWrap.style.display = 'none';
-            }
-            fsUpdatePreview();
-        }
-
-        function fsUpdatePreview() {
-            const perf = document.getElementById('fsPerf').value;
-            const preview = document.getElementById('fsPreview');
-            if (!perf) { preview.style.display = 'none'; return; }
-            let pts;
-            if (perf === '2') {
-                const couples = document.getElementById('fsCouples').value;
-                const rope = document.getElementById('fsRope').value;
-                pts = calcFantaPts(perf, couples, rope);
-            } else {
-                const count = document.getElementById('fsCount').value;
-                pts = calcFantaPts(perf, count, null);
-            }
-            preview.style.display = 'block';
-            preview.textContent = `Punti calcolati: ${pts} pt`;
-        }
-
-        function adminAddFanta() {
-            const team = document.getElementById('fsTeam').value;
-            const perf = document.getElementById('fsPerf').value;
-            if (!team) { toast('⚠️ Seleziona una squadra'); return; }
-            if (!perf) { toast('⚠️ Seleziona una performance'); return; }
-            let count, ropeLen, pts, label;
-            if (perf === '2') {
-                count = parseInt(document.getElementById('fsCouples').value) || 1;
-                ropeLen = document.getElementById('fsRope').value;
-                const ropeLabel = { long: 'lunga', mid: 'media', short: 'corta' }[ropeLen];
-                pts = calcFantaPts(perf, count, ropeLen);
-                label = `${FANTA_PERF_NAMES[perf]} — ${count} coppia/e (corda ${ropeLabel}) = ${pts} pt`;
-            } else {
-                count = parseInt(document.getElementById('fsCount').value) || 1;
-                pts = calcFantaPts(perf, count, null);
-                label = `${FANTA_PERF_NAMES[perf]} — ${count} giocatore/i = ${pts} pt`;
-            }
-            if (!_fantaData[team]) _fantaData[team] = [];
-            _fantaData[team].push({ perf: parseInt(perf), count, ropeLen: ropeLen || null, pts, label });
-            saveFanta();
-            renderAdminFanta();
-            renderFantaLeaderboard();
-            // reset
-            document.getElementById('fsTeam').value = '';
-            document.getElementById('fsPerf').value = '';
-            document.getElementById('fsCountWrap').style.display = 'none';
-            document.getElementById('fsCoupleWrap').style.display = 'none';
-            document.getElementById('fsPreview').style.display = 'none';
-            toast('✅ Performance Fanta Splash aggiunta!');
-        }
-
-        function adminRemoveFanta(teamName, idx) {
-            if (!_fantaData[teamName]) return;
-            _fantaData[teamName].splice(idx, 1);
-            if (_fantaData[teamName].length === 0) delete _fantaData[teamName];
-            saveFanta();
-            renderAdminFanta();
-            renderFantaLeaderboard();
-            toast('🗑️ Voce rimossa.');
-        }
-
-        function renderAdminFanta() {
-            const el = document.getElementById('adminFantaList');
-            if (!el) return;
-            const teams = Object.keys(_fantaData);
-            if (!teams.length) {
-                el.innerHTML = '<div style="opacity:.4;font-size:.82rem;padding:4px 0;">Nessuna performance inserita.</div>';
-                return;
-            }
-            el.innerHTML = teams.sort().map(tName => {
-                const entries = _fantaData[tName];
-                const total = entries.reduce((s, e) => s + e.pts, 0);
-                const rows = entries.map((e, i) => `
-                    <div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:.8rem;border-bottom:1px solid rgba(255,255,255,.05);">
-                        <span style="flex:1;opacity:.8;">${esc(e.label)}</span>
-                        <button class="btn-del-sm" onclick="adminRemoveFanta('${esc(tName)}',${i})">✕</button>
-                    </div>`).join('');
-                return `
-                <div style="margin-bottom:10px;background:rgba(0,0,0,.2);border-radius:10px;padding:8px 10px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-                        <span style="font-weight:900;font-size:.85rem;color:#7dd3fc;">${esc(tName)}</span>
-                        <span style="background:rgba(125,211,252,.2);border-radius:8px;padding:2px 8px;font-size:.8rem;font-weight:900;color:#7dd3fc;">TOT: ${total} pt</span>
-                    </div>
-                    ${rows}
-                </div>`;
-            }).join('');
-        }
-
-        function renderFantaLeaderboard() {
-            const el = document.getElementById('lbFanta');
-            if (!el) return;
-            // Calcola totale punti per squadra
-            const pts = {};
-            Object.values(_teams).forEach(t => { pts[t.name] = 0; });
-            Object.entries(_fantaData).forEach(([tName, entries]) => {
-                if (!pts[tName]) pts[tName] = 0;
-                entries.forEach(e => { pts[tName] += e.pts; });
-            });
-            // Rimuovi squadre con 0 pt se nessuno ha ancora punti
-            const allZero = Object.values(pts).every(v => v === 0);
-            if (allZero) {
-                el.innerHTML = '<div class="lb-empty">Classifica non ancora disponibile…</div>';
-                return;
-            }
-            const sorted = Object.entries(pts).sort((a, b) => b[1] - a[1]);
-            el.innerHTML = `
-    <div style="margin-top:10px;display:flex;justify-content:center;">
-        <table style="width:100%;max-width:480px;border-collapse:collapse;background:rgba(255,255,255,.02);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.06);">
-            <tbody>
-                ${sorted.map(([name, p], i) => `
-                    <tr style="border-bottom:1px solid rgba(255,255,255,.06);font-size:.9rem;">
-                        <td style="padding:10px 14px;font-weight:900;color:var(--sand);width:30px;text-align:center;">${i + 1}</td>
-                        <td style="padding:10px 14px;font-weight:700;text-align:left;color:#fff;">${esc(name)}</td>
-                        <td style="padding:10px 14px;font-weight:900;color:#7dd3fc;text-align:right;width:80px;white-space:nowrap;">${p} pt</td>
-                    </tr>`).join('')}
-            </tbody>
-        </table>
-    </div>`;
-        }
-
-        /* ══════════════════════════════════
            BACK TO TOP
         ══════════════════════════════════ */
         window.addEventListener('scroll', () => {
@@ -5394,7 +5033,7 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         ══════════════════════════════════ */
         function openAdmin() {
             document.getElementById('ovAdmin').classList.add('open');
-            if (adminLoggedIn) { renderPending(); renderAdminRanking(); populateAdminTeamSelects(); renderAdminFanta(); renderFantaLeaderboard(); }
+            if (adminLoggedIn) { renderPending(); renderAdminRanking(); populateAdminTeamSelects(); }
         }
         function populateTimeSelect() {
             const select = document.getElementById('addMatchTime');
@@ -5416,11 +5055,11 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
         }
         function populateAdminTeamSelects() {
             populateTimeSelect();
-            ['addMatchT1', 'addMatchT2', 'rnkName', 'fsTeam'].forEach(id => {
+            ['addMatchT1', 'addMatchT2', 'rnkName'].forEach(id => {
                 const sel = document.getElementById(id);
                 if (!sel) return;
                 const currentVal = sel.value;
-                const isRanking = id === 'rnkName' || id === 'fsTeam';
+                const isRanking = id === 'rnkName';
                 const defaultText = isRanking ? 'Seleziona Squadra…' : 'Seleziona squadra...';
                 sel.innerHTML = `<option value="" style="background:#01183d;color:#fff;">${defaultText}</option>`;
                 Object.values(_teams).sort((a, b) => a.name.localeCompare(b.name)).forEach(t => {
@@ -5445,8 +5084,6 @@ La classifica finale del Fanta Splash sarà data dalla somma dei punti delle per
                 renderAdminTeamList();
                 populateAdminTeamSelects();
                 renderTeams();
-                renderAdminFanta();
-                renderFantaLeaderboard();
             } else {
                 err.style.display = 'block';
                 document.getElementById('adminPwInp').value = '';
